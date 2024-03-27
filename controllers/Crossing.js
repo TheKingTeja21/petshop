@@ -22,7 +22,7 @@ module.exports={
         }
     },
     changeimage: async(req,res)=>{
-        const {name,nails,Color,Gender,imageurl,Age,description,Fathername,Mothername}= req.body
+        const {name,nails,Color,Gender,imageurl,Age,description,Fathername,Mothername,phone}= req.body
         const Petid= req.params.user
         try {
             const existPet=await Crossing.findById(Petid)
@@ -37,6 +37,7 @@ module.exports={
                     description: description,
                     Fathername: Fathername,
                     Mothername: Mothername,
+                    phone: phone,
                 })
                 await newpet.save()
             }

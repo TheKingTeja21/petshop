@@ -136,10 +136,10 @@ module.exports = {
     try {
       const productId =await Product.aggregate([
         {$match:{code:req.params.code}},
-        {$sample:{size:5}},
+        {$sample:{size:4}},
         {$project:{_id:0}}
       ])
-      res.status(200).json('successfully added')
+      res.status(200).json(productId)
     } catch (error) {
       res.status(500).json({staus:false,message:'error',error})
     }

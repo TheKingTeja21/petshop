@@ -2,7 +2,8 @@ const mongoose = require('mongoose');
 const Crossing=  new mongoose.Schema({
     name:{type:String, required:true},
     nails:{type:Number, required:true},
-    Color:{type:String, required:   true},
+    Color:{type:String, required:true},
+    phone:{type:Number, required:true},
     Gender:{type:String, required:true},
     Category:{type:mongoose.Schema.Types.ObjectId, ref:"Category"},
     imageurl:{type:String, required:true},
