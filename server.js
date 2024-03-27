@@ -15,6 +15,7 @@ const productRouter =require("./routes/Products")
 const payment= require("./routes/Payment")
 const accessoriesRouter= require("./routes/accerssories")
 const hospitalRouter = require("./routes/veteryhospital")
+const Crossing= require("./routes/Crossing")
 
 dotenv.config()
 const serviceAccount = require("./firebaseKey.json");
@@ -38,5 +39,6 @@ app.use("/api/stripe", express.raw({ type: "*/*" }));
 app.use('/api/category',CategoriesRouter)
 app.use('/api/accessories',accessoriesRouter)
 app.use("/api/hospital",hospitalRouter)
+app.use("/api/Crossing",Crossing)
 app.get('/', (req, res) => res.send('Hello World!'))
 app.listen(process.env.PORT || port, () => console.log(`Example app listening on port ${process.env.PORT}!`));
