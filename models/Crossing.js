@@ -11,8 +11,8 @@ const Crossing=  new mongoose.Schema({
     Age:{type:String,required:true},
     description:{type:String, required:true},
     FathertBread:{type:String, required:true},
-    MotherBrxead:{type:String, required:true}.
-    userid={type:mongoose.Schema.Types.ObjectId, ref:"User"}
+    MotherBrxead:{type:String, required:true},
+    userid:{type:mongoose.Schema.Types.ObjectId, ref:"User"}
 },{timestamps:true})
 
 module.exports = mongoose.model("Crossing", Crossing);

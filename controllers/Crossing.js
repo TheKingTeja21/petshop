@@ -45,5 +45,17 @@ module.exports={
             
         }
     
+    },
+    getCrossingPetasByID:async (req, res, next) => {
+        const userId= req.params.id;
+        try {
+            const Crossingpets= await Crossing.find({userid: userId})
+            if(!Crossingpets){
+                return res.status(404).json("ADD YOURS PETS FOR CROSSING")
+            }
+            res.status(200).json(Crossingpets)
+        } catch (error) {
+            res.status(500).json(error.message)
+        }
     }
 }
