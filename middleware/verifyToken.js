@@ -2,13 +2,12 @@ const jwt = require("jsonwebtoken");
 const verifyToken = (req, res, next) => {
   const authHeader = req.body.authHeader;
   if (authHeader) {
-    const token = authHeader.split([1]);
-    console.log(token);
-    jwt.verify(token, process.env.SECRET_KEY_jWT, async (error, user) => {
+    jwt.verify(authHeader, process.env.SECRET_KEY_jWT, async (error, user) => {
       if (error) {
         res.status(403).json(error);
       }
       req.user = user;
+      console.log(user);
       next();
     });
   }
@@ -16,10 +15,10 @@ const verifyToken = (req, res, next) => {
 const verifyAndAAuthorization = (req, res, next) => {
   verifyToken(req, res, () => {
     if (
-      req.user.userType === "Client" ||
-      req.user.userType === "Vendor" ||
-      req.user.userType === "Driver" ||
-      req.user.userType === "Admin"
+      req.user.usertype === "Client" ||
+      req.user.usertype === "Vendor" ||
+      req.user.usertype === "Driver" ||
+      req.user.usertype === "Admin"
     ) {
       next();
     } else {
@@ -29,7 +28,7 @@ const verifyAndAAuthorization = (req, res, next) => {
 };
 const verifyVendor = (req, res, next) => {
   verifyToken(req, res, () => {
-    if (req.user.userType === "Vendor" || req.user.userType === "Admin") {
+    if (req.user.usertype === "Vendor" || req.user.usertype === "Admin") {
       next();
     } else {
       res.status(403).json({ status: "false", message: "user not authorized" });
@@ -39,9 +38,9 @@ const verifyVendor = (req, res, next) => {
 const verifyDriver = (req, res, next) => {
   verifyToken(req, res, () => {
     if (
-      req.user.userType === "Vendor" ||
-      req.user.userType === "Driver" ||
-      req.user.userType === "Admin"
+      req.user.usertype === "Vendor" ||
+      req.user.usertype === "Driver" ||
+      req.user.usertype === "Admin"
     ) {
       next();
     } else {
@@ -51,7 +50,7 @@ const verifyDriver = (req, res, next) => {
 };
 const verifyAdmin = (req, res, next) => {
   verifyToken(req, res, () => {
-    if (req.user.userType === "Admin") {
+    if (req.user.usertype === "Admin") {
       next();
     } else {
       res.status(403).json({ status: "false", message: "user not authorized" });

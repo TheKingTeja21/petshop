@@ -61,7 +61,11 @@ module.exports = {
         {
           id: user.id,
           usertype: user.userType,
+          username: user.username,
           email: user.email,
+          phone:user.phone,
+          adddress: user.address,
+          profile:user.profile,
         },
         process.env.SECRET_KEY_jWT,
         { expiresIn: "7d" }

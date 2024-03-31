@@ -2,7 +2,7 @@ const route= require('express').Router();
 const animalshopauth=require('../controllers/animalsshop')
 const {verifyAndAAuthorization,verifyAdmin,verifyDriver,verifyVendor} =require('../middleware/verifyToken')
 
-route.post('/',animalshopauth.addanimalshop),
+route.post('/',verifyAdmin,animalshopauth.addanimalshop),
 route.get('/:id',animalshopauth.getanimalshop),
 route.get('/:code',animalshopauth.getRandomanimalshop),
 route.delete('/:id',verifyAdmin,animalshopauth.deleteanimalshop),

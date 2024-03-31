@@ -35,7 +35,6 @@ app.use('/api/cart',cartrouter);
 app.use('/api/product',productRouter)
 app.use('/api/orders',OrderRouter);
 app.use('/api/createPayment',payment);
-app.use("/api/stripe", express.raw({ type: "*/*" }));
 app.use('/api/category',CategoriesRouter)
 app.use('/api/accessories',accessoriesRouter)
 app.use("/api/hospital",hospitalRouter)

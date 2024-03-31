@@ -135,7 +135,7 @@ module.exports = {
   gatRandomProductbycode: async (req,res)=>{
     try {
       const productId =await Product.aggregate([
-        {$match:{code:req.params.code}},
+        {$match:{code:req.params.code}},  
         {$sample:{size:4}},
         {$project:{_id:0}}
       ])
@@ -161,7 +161,7 @@ module.exports = {
       res.status(200).json({staus:true,message:'tag added successfully'});
       
     } catch (error) {
-      
+      res.status(500).json(error);
     }
   },
   getRandomByCategoryandCode: async (req,res)=>{
@@ -188,5 +188,19 @@ module.exports = {
       
     }
   },
+  categoryProducts: async (req,res) => {
+    const categoryID = req.params.id;
+    console.log(categoryID);
+    try {
+      const product = await Product.find({category:categoryID})
+      if(!product || product.length === 0) {
+        return res.status(404).json("product not found in animalshop")
+      }
+      res.status(200).json(product);
+    } catch (error) {
+      res.status(500).json("failed to get the product");
+      
+    }
+  }
 
 };

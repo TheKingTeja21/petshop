@@ -68,7 +68,7 @@ module.exports = {
     try {
       const usercart = await Cart.find({ userId: userid }).populate({
         path: "ProductId",
-        select: "title price quantity",
+        select: "name price quantity",
       });
       res.status(200).json(usercart);
       console.log(usercart);
