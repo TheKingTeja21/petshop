@@ -13,7 +13,7 @@ Router.post(
 Router.get("/getall", Crossingcoontrooler.getallCrossingpets);
 Router.put(
   "/changeimge",
-  verifyAndAAuthorizationCrossingcoontrooler.changeimage
+  verifyAndAAuthorization,Crossingcoontrooler.changeimage
 );
 Router.get(
   "/getbyId/:id",
