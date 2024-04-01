@@ -17,7 +17,6 @@ Router.put(
 );
 Router.get(
   "/getbyId/:id",
-  verifyVendor,
   Crossingcoontrooler.getCrossingPetasByID
 );
 Router.post("/update/:id", Crossingcoontrooler.updateCrossing)
