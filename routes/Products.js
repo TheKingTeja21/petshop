@@ -16,6 +16,7 @@ router.get('/randomproduct',productcontroller.gatRandomProductbycode)
 router.post('/addproductTag',verifyVendor,productcontroller.addProductType)
 router.get('/:category/:code',productcontroller.getRandomByCategoryandCode)
 router.patch('/:id',verifyVendor,productcontroller.productAvailable)
+router.post("/update/:id",productcontroller.EditProduct)
 
     
 module.exports = router

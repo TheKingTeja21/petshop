@@ -57,5 +57,19 @@ module.exports={
         } catch (error) {
             res.status(500).json(error.message)
         }
+    },
+    updateCrossing:async (req, res) => {
+        const Crossingid= req.params.id
+        try {
+            const crossing = await Crossing.findByIdAndUpdate(Crossingid, req.body,{new:true,runValidators:true});
+            if(!crossing){
+                return res.status(404).json("NOT FOUND PRODUCT")
+            }
+            
+            res.status(201).json("Succcess fully Update")
+        } catch (error) {
+            res.status(500).json(error)
+            
+        }
     }
 }

@@ -20,5 +20,6 @@ Router.get(
   verifyVendor,
   Crossingcoontrooler.getCrossingPetasByID
 );
+Router.post("/update/:id", Crossingcoontrooler.updateCrossing)
 
 module.exports = Router;
