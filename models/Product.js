@@ -3,7 +3,7 @@ const Productschema= new mongoose.Schema({
     title:{type:String,required:true},
     petsshop:{type:mongoose.Schema.Types.ObjectId,ref:'Animalsshop'},
     userId:{ type:mongoose.Schema.Types.ObjectId, ref:"User"},
-    imageurl:{type:String},
+    imageurl:{type:String,required:true},
     description:{type:String,required:true},
     Bread:{type:Array,required:true},
     quantity:{type:Number,default:1},
