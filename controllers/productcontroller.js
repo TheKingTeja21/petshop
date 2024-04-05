@@ -1,10 +1,12 @@
+const { request } = require("express");
 const Product = require("../models/Product");
 
 module.exports = {
   createProduct: async (req, res) => {
-    const newproduct = new Product(req.body);
+    const newProduct = new Product(req.body)
     try {
-      await newproduct.save();
+      const newproduct = await Product.create(newProduct);
+      await newproduct.save()
       res.status(200).json("product created sucullfull");
     } catch (error) {
       res.status(500).json(error.message);

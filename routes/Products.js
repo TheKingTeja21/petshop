@@ -2,7 +2,6 @@ const router = require("express").Router();
 const productcontroller = require("../controllers/productcontroller");
 const {verifyAdmin,verifyVendor} =require("../middleware/verifyToken")
 
-
 router.post("/",verifyVendor,productcontroller.createProduct)
 router.get("/getproduct/:id",productcontroller.product)
 router.get('/allproducts',productcontroller.getallProduct)
