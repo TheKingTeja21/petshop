@@ -7,7 +7,6 @@ const Crossingcoontrooler = require("../controllers/Crossing");
 
 Router.post(
   "/",
-  verifyAndAAuthorization,
   Crossingcoontrooler.createCrossingpeet
 );
 Router.get("/getall", Crossingcoontrooler.getallCrossingpets);

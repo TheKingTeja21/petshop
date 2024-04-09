@@ -8,8 +8,7 @@ module.exports = {
         .populate({
           path: "productId",
           select: "-description -productlocation",
-        })
-        .exec();
+        }).exec()
       res.status(200).json(userorder);
     } catch (error) {
       res.status(500).json(error);

@@ -26,8 +26,8 @@ admin.initializeApp({
 
 mogoose.connect(process.env.MONGO_URL).then(() => console.log("db is connected")).catch((err)=> console.log(err))
 
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({extended:true}));
+app.use(bodyParser.json({limit:'50mb'}))
+app.use(bodyParser.urlencoded({extended:true,limit:'50mb'}));
 app.use('/',authrouter);
 app.use('/api/users',userRouter)
 app.use('/api/animalshop',animalshoproute)

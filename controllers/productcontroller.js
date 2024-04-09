@@ -139,7 +139,6 @@ module.exports = {
       const productId = await Product.aggregate([
         { $match: { code: req.params.code } },
         { $sample: { size: 4 } },
-        { $project: { _id: 0 } },
       ]);
       res.status(200).json(productId);
     } catch (error) {
