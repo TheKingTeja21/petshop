@@ -37,5 +37,24 @@ module.exports = {
       res.status(500).json(error);
     }
   },
+  changeOrderstatus: async (req, res) => {
+    const Orderid= req.params.id
+    const staus= req.body
+    try {
+      const order = await Order.findByIdAndUpdate(Orderid,staus,{new:true,
+        runValidators:true
+      })
+      
+      if(!order){
+        return res.status(404).json("Order Not Found")
+      }
+      console.log(order);
+      await order.save();
+      res.status(201).json("Successfull Update")
+    } catch (error) {
+      res.status(500).json(error)
+      
+    }
+  }
   
 };

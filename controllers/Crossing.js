@@ -71,5 +71,18 @@ module.exports={
             res.status(500).json(error)
             
         }
+    },
+    deleteCrossing:async (req, res) => {
+        const petid = req.params.id;
+        try {
+            const deleteCrossing= await Crossing.findByIdAndDelete(petid)
+            if(!deleteCrossing){
+                return res.status(404).json("NOT FOUND PRODUCT");
+            }
+            res.status(200).json("Succcessfully")
+        } catch (error) {
+            res.status(500).json(error);
+            
+        }
     }
 }

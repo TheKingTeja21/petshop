@@ -19,6 +19,7 @@ Router.get(
   "/getbyId/:id",
   Crossingcoontrooler.getCrossingPetasByID
 );
-Router.post("/update/:id", Crossingcoontrooler.updateCrossing)
+Router.post("/update/:id", Crossingcoontrooler.updateCrossing);
+Router.delete('/delete/:id', Crossingcoontrooler.deleteCrossing);
 
 module.exports = Router;

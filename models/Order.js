@@ -9,7 +9,7 @@ const Orderschema = new mongoose.Schema({
     subtotal:{type:Number,required:true},
     total:{type:Number,required:true},
     payment_status:{type:String,default:"pending",enum:["faild","pending","successfully paid"]},
-    delivery_status:{type:String,default:"Shipping",enum:["Shipping","Today Delivery"]}
+    delivery_status:{type:String,default:"Shipping",enum:["Shipping","Today Delivery","successfully Deliveryed"]}
 
 
 

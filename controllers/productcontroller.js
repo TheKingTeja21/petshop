@@ -73,14 +73,14 @@ module.exports = {
   deleteProductasshop: async (req, res) => {
     const animalshopproduct = req.params.id;
     try {
-      const product = await Product.findById(animalshopproduct);
+      const product = await Product.findByIdAndDelete(animalshopproduct);
       if (!product) {
         return res.status(404).json("product not found");
       }
-      await Product.findByIdAndDelete(product);
+      
       res.status(200).json("delete product successfully");
     } catch (error) {
-      res.status(500).json("failed to delete the product");
+      res.status(500).json(error);
     }
   },
   productAvailable: async (req, res) => {
