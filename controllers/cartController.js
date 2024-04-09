@@ -65,7 +65,7 @@ module.exports = {
     try {
       const cart = await Cart.findOneAndDelete({userId:userId,ProductId :itemId});
       if (!cart) {
-        res.status(404).json("cart NOt found");
+        return res.status(404).json("cart NOt found");
       }
       console.log(cart);
       let count = await Cart.countDocuments({ userId });
