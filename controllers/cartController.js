@@ -63,12 +63,12 @@ module.exports = {
     const itemId = req.body.id;
     const userId = req.params.id;
     try {
-      const cart = await Cart.findOne({ userId });
+      const cart = await Cart.findOneAndDelete({userId:userId,ProductId :itemId});
       if (!cart) {
         res.status(404).json("cart NOt found");
       }
-      await Cart.findByIdAndDelete({ _id: itemId });
-      let count = await cart.countDocuments({ userId });
+      console.log(cart);
+      let count = await Cart.countDocuments({ userId });
       res.status(200).json({ count: count });
     } catch (error) {
       res.status(500).json(error);
