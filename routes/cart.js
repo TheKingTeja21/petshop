@@ -6,6 +6,6 @@ router.get("/:id",cartauthcontroller.fetchuserCart),
 router.delete("/delete/:id", cartauthcontroller.removeProductfromCart),
 router.delete("/clearcart/:id",cartauthcontroller.clearUsercart)
 router.get("/count/:id",cartauthcontroller.getCartcount)
-router.post("deceemnt/:id",cartauthcontroller.decrementProductQty)
+router.post("/decrement/:id",cartauthcontroller.decrementProductQty)
 
 module.exports = router

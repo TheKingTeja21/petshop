@@ -115,13 +115,13 @@ module.exports = {
     try {
       const existingProduct = await Cart.findOne({ userId, Productid });
       count = await Cart.countDocuments({ userId });
-      if (existingCart.quantity > 1) {
+      if (existingProduct.quantity > 1) {
         (existingProduct.quantity -= 1),
           (existingProduct.totalprice -= totalprice),
           await existingProduct.save();
       } else {
         await Cart.findByIdAndDelete({ _id: itemId });
-        let count = await cart.countDocuments({ userId });
+        let count = await Cart.countDocuments({ userId });
         return res.status(200).json({ count: count });
       }
       res.status(200).json({ message: "Success", count: count });
