@@ -113,8 +113,9 @@ module.exports = {
     const { Productid, totalprice } = req.body;
     let count;
     try {
-      const existingProduct = await Cart.findOne({ userId, Productid });
+      const existingProduct = await Cart.findOne({ userId:userId, ProductId:Productid });
       count = await Cart.countDocuments({ userId });
+      console.log(existingProduct);
       if (existingProduct.quantity > 1) {
         (existingProduct.quantity -= 1),
           (existingProduct.totalprice -= totalprice),
