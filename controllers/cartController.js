@@ -60,14 +60,16 @@ module.exports = {
   },
 
   removeProductfromCart: async (req, res) => {
-    const itemId = req.body.id;
-    const userId = req.params.id;
+     const userId = req.body.userid
+    const itemId = req.params.id;
+    console.log(userId);
     try {
-      const cart = await Cart.findOneAndDelete({userId:userId,ProductId :itemId});
-      if (!cart) {
-        return res.status(404).json("cart NOt found");
-      }
+      const cart =await Cart.findByIdAndDelete(itemId);
       console.log(cart);
+      if (!cart) {
+        return res.status(200).json("cart NOt found");
+      }
+      
       let count = await Cart.countDocuments({ userId });
       res.status(200).json({ count: count });
     } catch (error) {

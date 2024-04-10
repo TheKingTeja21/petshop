@@ -38,5 +38,19 @@ module.exports ={
             res.status(500).json(error.message);
             
         }
+    },
+    changeProfile: async  ()=>{
+        const userid = req.params.id
+        Imageurl = req.body.imageurl
+        try {
+            const user= await User.findById(userid)
+            if(!user){
+                return res.status(404).json("user not found")
+            }
+            await User.findByIdAndDelete(userid,{imageurl:Imageurl})
+        } catch (error) {
+            return res.status(500).json(error)
+            
+        }
     }
 }

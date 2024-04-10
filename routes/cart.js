@@ -3,7 +3,7 @@ const cartauthcontroller =require("../controllers/cartController")
 
 router.post("/addtocart/:id",cartauthcontroller.addtoCart),
 router.get("/:id",cartauthcontroller.fetchuserCart),
-router.delete("/delete/:id", cartauthcontroller.removeProductfromCart),
+router.delete("/:id",cartauthcontroller.removeProductfromCart),
 router.delete("/clearcart/:id",cartauthcontroller.clearUsercart)
 router.get("/count/:id",cartauthcontroller.getCartcount)
 router.post("/decrement/:id",cartauthcontroller.decrementProductQty)
