@@ -39,15 +39,17 @@ module.exports ={
             
         }
     },
-    changeProfile: async  ()=>{
+    changeProfile: async (req,res)=>{
         const userid = req.params.id
-        Imageurl = req.body.imageurl
+        const Imageurl = req.body
         try {
-            const user= await User.findById(userid)
+            const user= await User.findByIdAndUpdate(userid,Imageurl,{new:true, runValidators:true})
+            console.log(user);
             if(!user){
                 return res.status(404).json("user not found")
             }
-            await User.findByIdAndDelete(userid,{imageurl:Imageurl})
+            res.status(200).json(user)
+            
         } catch (error) {
             return res.status(500).json(error)
             

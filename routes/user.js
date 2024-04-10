@@ -6,6 +6,6 @@ const userauth = require("../controllers/userController");
 router.delete('/',verifyAndAAuthorization,userauth.deleteUser)
 router.get('/',verifyAndAAuthorization,userauth.getUser)
 router.put('/update',verifyAndAAuthorization,userauth.updateUser)
-router.put('/imagechange/:id',userauth.changeProfile)
+router.post('/imagechange/:id',userauth.changeProfile)
 
 module.exports = router
