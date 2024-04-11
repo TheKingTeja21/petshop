@@ -54,5 +54,18 @@ module.exports ={
             return res.status(500).json(error)
             
         }
+    },
+    updateAdress : async (req, res)=>{
+        const userid = req.params.id
+        const adress = req.body
+        try {
+            const respone= await User.findByIdAndUpdate(userid,adress,{new:true, runValidators:true})
+            if(!respone){
+                return res.status(404).json("userNotFound")
+            }
+            res.status(200).json(respone)
+        } catch (error) {
+            res.status(500).json(error)
+        }
     }
 }
