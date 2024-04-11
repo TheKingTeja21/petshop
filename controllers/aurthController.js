@@ -46,7 +46,7 @@ module.exports = {
     try {
       const user = await User.findOne({ email: req.body.email });
       if (!user) {
-       return res.status(401).json("Wrong credentials provided a valid gmail");
+       return res.status(401).json({message:"Wrong credentials provided a valid gmail"});
       }
       const decryptedpassword = Crtpto.AES.decrypt(
         user.password,
