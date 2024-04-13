@@ -11,7 +11,7 @@ const Productschema = new mongoose.Schema(
     price: { type: Number, required: true },
     category: { type: String, required: true },
     petTags: { type: Array, required: true },
-    isAvailable: { type: Boolean, default: true, required: true },
+    isAvailable: { type: Boolean,required: true },
     Rating: {
       type: Number,
       min: 1,
