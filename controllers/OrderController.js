@@ -54,6 +54,19 @@ module.exports = {
       res.status(500).json(error)
       
     }
+  },
+  vendordera:async (req,res)=>{
+    sellerId = req.params.id;
+    try {
+      const resopne = await Order.find({sellerId:sellerId})
+      if(!resopne){
+        return res.status(404).json("NO ORDERS FOUND")
+      }
+      console.log(resopne);
+      res.status(200).json(resopne)
+    } catch (error) {
+      res.status(500).json(error)
+    }
   }
   
 };
