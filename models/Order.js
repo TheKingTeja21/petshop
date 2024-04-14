@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const Orderschema = new mongoose.Schema({
-    userId:{type:String,required:true},
+    userId:{type:mongoose.Schema.Types.ObjectId, ref:"User"},
     sellerId:{type:String,required:true},
     imageurl:{type:String,required:true},
     productId:{type:mongoose.Schema.Types.ObjectId, ref:"Product"},

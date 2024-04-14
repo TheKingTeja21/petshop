@@ -56,14 +56,17 @@ module.exports = {
     }
   },
   vendordera:async (req,res)=>{
-    sellerId = req.params.id;
+    const Vendorid= req.params.id
     try {
-      const resopne = await Order.find({sellerId:sellerId})
-      if(!resopne){
-        return res.status(404).json("NO ORDERS FOUND")
+      const respone = await Order.find({sellerId:Vendorid}).populate({
+        path: "userId",
+        select: "username email phone address",
+      }).exec()
+
+      if(!respone){
+        return res.status(404).json("NOT FOUNd")
       }
-      console.log(resopne);
-      res.status(200).json(resopne)
+      res.status(200).json(respone)
     } catch (error) {
       res.status(500).json(error)
     }
