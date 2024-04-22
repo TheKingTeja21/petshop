@@ -55,7 +55,7 @@ module.exports = {
       
     }
   },
-  vendordera:async (req,res)=>{
+  vendorders:async (req,res)=>{
     const Vendorid= req.params.id
     try {
       const respone = await Order.find({sellerId:Vendorid}).populate({

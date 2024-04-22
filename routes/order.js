@@ -5,6 +5,6 @@ const {verifyAndAAuthorization,verifyDriver} = require("../middleware/verifyToke
 router.get("/user/:id",orderauthcontroller.getUserorders)
 router.post('/',orderauthcontroller.OrdercratedOrder)
 router.post("/update/:id",orderauthcontroller.changeOrderstatus)
-router.get("/Vendororders/:id",orderauthcontroller.vendordera)
+router.get("/Vendororders/:id",orderauthcontroller.vendorders)
 
 module.exports = router
