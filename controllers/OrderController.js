@@ -4,7 +4,7 @@ module.exports = {
   getUserorders: async (req, res) => {
     const userId = req.params.id;
     try {
-      const userorder = await Order.find({userId:userId})
+      const userorder = await Order.find({_id:userId})
         .populate({
           path: "productId",
           select: "-description -productlocation",
