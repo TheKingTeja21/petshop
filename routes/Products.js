@@ -10,11 +10,8 @@ router.get('/search/:key',productcontroller.search)
 router.delete('/:id',productcontroller.deleteProductasshop)
 router.get('/vendor/:id',productcontroller.getVendorProducts)
 router.post('/animalshop/:id',verifyVendor,productcontroller.UpdateFoodId)
-router.post('/tags/:id',verifyVendor,productcontroller.addFoodtags)
 router.get('/randomproduct',productcontroller.gatRandomProductbycode)
-router.post('/addproductTag',verifyVendor,productcontroller.addProductType)
 router.get('/:category/:code',productcontroller.getRandomByCategoryandCode)
-router.patch('/:id',verifyVendor,productcontroller.productAvailable)
 router.post("/update/:id",productcontroller.EditProduct)
 
     

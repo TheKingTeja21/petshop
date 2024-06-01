@@ -82,20 +82,20 @@ module.exports = {
       res.status(500).json(error);
     }
   },
-  productAvailable: async (req, res) => {
-    const productId = req.params.id;
-    try {
-      const product = await Product.findById(productId);
-      if (!product) {
-        return res.status(404).json("product not found");
-      }
-      product.foodAvailable = !product.foodAvailable;
-      await Product.save();
-      res.status(200).json("food available");
-    } catch (error) {
-      res.status(500).json("failed to change availability of the product");
-    }
-  },
+  // productAvailable: async (req, res) => {
+  //   const productId = req.params.id;
+  //   try {
+  //     const product = await Product.findById(productId);
+  //     if (!product) {
+  //       return res.status(404).json("product not found");
+  //     }
+  //     product.foodAvailable = !product.foodAvailable;
+  //     await Product.save();
+  //     res.status(200).json("food available");
+  //   } catch (error) {
+  //     res.status(500).json("failed to change availability of the product");
+  //   }
+  // },
   UpdateFoodId: async (req, res) => {
     const productId = req.params.id;
     try {
@@ -113,26 +113,26 @@ module.exports = {
       res.status(500).json("failed to update availability of the product");
     }
   },
-  addFoodtags: async (req, res) => {
-    const productId = req.params.id;
-    const { tag } = req.body;
-    try {
-      const product = await Product.findById(productId);
-      if (!product) {
-        return res.status(404).json("product not found");
-      }
-      if (Product.foodtags.includes(tag)) {
-        return res
-          .status(200)
-          .json({ staus: false, message: "tag already exists" });
-      }
-      Product.foodtags.push(tag);
-      await Product.save();
-      res.status(200).json("successfully added");
-    } catch (error) {
-      res.status(500).json({ staus: false, message: "error saving tags" });
-    }
-  },
+  // addFoodtags: async (req, res) => {
+  //   const productId = req.params.id;
+  //   const { tag } = req.body;
+  //   try {
+  //     const product = await Product.findById(productId);
+  //     if (!product) {
+  //       return res.status(404).json("product not found");
+  //     }
+  //     if (Product.foodtags.includes(tag)) {
+  //       return res
+  //         .status(200)
+  //         .json({ staus: false, message: "tag already exists" });
+  //     }
+  //     Product.foodtags.push(tag);
+  //     await Product.save();
+  //     res.status(200).json("successfully added");
+  //   } catch (error) {
+  //     res.status(500).json({ staus: false, message: "error saving tags" });
+  //   }
+  // },
   gatRandomProductbycode: async (req, res) => {
     try {
       const productId = await Product.aggregate([
@@ -144,28 +144,28 @@ module.exports = {
       res.status(500).json({ staus: false, message: "error", error });
     }
   },
-  addProductType: async (req, res) => {
-    const productId = req.params.id;
-    const productType = req.body.productType;
-    try {
-      const product = await Product.findById(productId);
-      if (!product) {
-        return res
-          .status(404)
-          .json({ staus: false, message: "not found", error });
-      }
-      if (Product.ProductType.includes(productType)) {
-        return res
-          .status(404)
-          .json({ staus: false, message: "tag already exists" });
-      }
-      Product.ProductType.push(productType);
-      await Product.save();
-      res.status(200).json({ staus: true, message: "tag added successfully" });
-    } catch (error) {
-      res.status(500).json(error);
-    }
-  },
+  // addProductType: async (req, res) => {
+  //   const productId = req.params.id;
+  //   const productType = req.body.productType;
+  //   try {
+  //     const product = await Product.findById(productId);
+  //     if (!product) {
+  //       return res
+  //         .status(404)
+  //         .json({ staus: false, message: "not found", error });
+  //     }
+  //     if (Product.ProductType.includes(productType)) {
+  //       return res
+  //         .status(404)
+  //         .json({ staus: false, message: "tag already exists" });
+  //     }
+  //     Product.ProductType.push(productType);
+  //     await Product.save();
+  //     res.status(200).json({ staus: true, message: "tag added successfully" });
+  //   } catch (error) {
+  //     res.status(500).json(error);
+  //   }
+  // },
   getRandomByCategoryandCode: async (req, res) => {
     const { catrgory, code } = req.params;
     try {
