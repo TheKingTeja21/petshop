@@ -12,7 +12,6 @@ const Productschema = new mongoose.Schema(
     category: { type: String, required: true },
     Bread_lineage: { type: String, required: true },
     shopAddress: { type: String, required: true },
-    Nails: { type: Number, min: 18, max: 24, required: true },
     Gender: { type: String, required: true },
   },
   { timestamps: true }
