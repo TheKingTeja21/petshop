@@ -9,4 +9,4 @@ const Aboutpet= new mongoose.Schema({
     Life_span:{type: String,required: true},
     Characteristic: {type: String,required: true}
 })
-module.exports = mongoose.model("Aboutpet", Aboutpet);
+module.exports = mongoose.model("Aboutpet",Aboutpet );
