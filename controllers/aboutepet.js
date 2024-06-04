@@ -9,5 +9,17 @@ module.exports ={
         } catch (error) {     
           res.status(500).json(error.message);
         }
+    },
+    getallDog:async(req,res)=>{
+      try {
+        const Dogdetails = await aboutepet.find({Category:"dog"})
+        if(!Dogdetails) {
+          return res.status(404).json("product not found");
+        }
+        res.status(200).json(Dogdetails)
+      } catch (error) {
+        res.status(500).json(error.message);
+        
+      }
     }
 }
