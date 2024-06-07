@@ -8,6 +8,7 @@ const Broding=  new mongoose.Schema({
     phonenumber:{type:Number,required:true},
     Category:{type:Array,required:true},
     Bread:{type:Array,required:true},
+    imageurl:{type:String,required:true},
     Rate:{type:Array,required:true},
 
 },{timestamps:true})
