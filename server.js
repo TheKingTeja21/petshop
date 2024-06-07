@@ -19,9 +19,10 @@ const Crossing = require("./routes/Crossing");
 const animal = require("./routes/animal");
 const ABOUTpet= require("./routes/aboutepet");
 const mypet= require("./routes/mypet");
-
+const broding=require("./routes/Broding")
 dotenv.config();
 const serviceAccount = require("./firebaseKey.json");
+const Broding = require("./controllers/Broding");
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
@@ -46,6 +47,7 @@ app.use("/api/accessories", accessoriesRouter);
 app.use("/api/hospital", hospitalRouter);
 app.use("/api/Crossing", Crossing);
 app.use("/api/aboutanimal",animal);
+app.use("/api/Broding",broding);
 
 app.use("/api/mypet",mypet);
 app.use("/api/Aboutepet",ABOUTpet);
