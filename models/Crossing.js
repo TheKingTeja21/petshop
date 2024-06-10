@@ -1,17 +1,14 @@
 const mongoose = require('mongoose');
 const Crossing=  new mongoose.Schema({
-    name:{type:String, required:true},
-    Nails:{type:Number, required:true},
-    Bread:{type:String, required:true},
-    Color:{type:String, required:true},
-    phone:{type:Number, required:true},
-    Gender:{type:String, required:true},
-    isAvialble:{type:Boolean, required:true},
-    imageurl:{type:String, required:true},
-    Age:{type:String,required:true},
-    description:{type:String, required:true},
-    FathertBread:{type:String, required:true},
-    MotherBread:{type:String, required:true},
+    Category:{type:String,required:true},
+    Bread_name:{type:String,required:true},
+    Quality:{type:String,required:true},
+    imageurl:{type:String,required:true},
+    mating_video:{type:String,required:true},
+    Bread_detais:{type:String,required:true},
+    aadhar_Number:{type:Number,required:true},
+    Address:{type:String,required:true},
+    Contact_details:{type:String,required:true},
     userid:{type:mongoose.Schema.Types.ObjectId, ref:"User"}
 },{timestamps:true})
 
