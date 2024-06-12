@@ -11,8 +11,8 @@ const Productschema = new mongoose.Schema(
     price: { type: Number, required: true },  
     category: { type: String, required: true },
     Bread_lineage: { type: String, required: true },
-      Address: { type: String, required: true },
-      Gender: { type: String, required: true },
+    Address: { type: String, required: true },
+    Gender: { type: String, required: true },
   },
   { timestamps: true }
 );
