@@ -10,6 +10,7 @@ const Crossing=  new mongoose.Schema({
     aadhar_Number:{type:Number,required:true},
     Address:{type:String,required:true},
     Contact_details:{type:String,required:true},
+    location:{type:String,required:true},
     userid:{type:mongoose.Schema.Types.ObjectId, ref:"User" }
 },{timestamps:true})
 

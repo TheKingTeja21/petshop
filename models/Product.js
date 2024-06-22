@@ -13,6 +13,8 @@ const Productschema = new mongoose.Schema(
     Bread_lineage: { type: String, required: true },
     Address: { type: String, required: true },
     Gender: { type: String, required: true },
+    available: { type: String, required: true},
+    location: { type: String, required: true},
   },
   { timestamps: true }
 );

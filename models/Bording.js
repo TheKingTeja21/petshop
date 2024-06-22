@@ -10,6 +10,9 @@ const Broding=  new mongoose.Schema({
     Bread:{type:Array,required:true},
     imageurl:{type:String,required:true},
     Rate:{type:Array,required:true},
+    currentbookings:{type:Array,required:true},
+    Shoplocation:{type:Array,required:true},
+    description:{type:String,required:true},
 
 },{timestamps:true})
 module.exports = mongoose.model("Broding", Broding);
