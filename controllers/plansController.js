@@ -39,5 +39,16 @@ const assignPlanToUser = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
+const getPlanDetails = async (req, res) => {
+  const planid= req.query
+  if (!planid) {
+    return res.status(400).json({message:"Please select a plan"}) ;
+  }
+  const plan=await Plan.findById(planid)
+  if(!plan){
+    return res.status(200).json({ message: 'plan Not found' });
+  }
+  return res.json(plan);
+}
 
-module.exports = { assignPlanToUser, createPlans, getAllPlans };
+module.exports = { assignPlanToUser, createPlans, getAllPlans,getPlanDetails };
