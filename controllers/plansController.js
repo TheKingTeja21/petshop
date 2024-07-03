@@ -13,7 +13,14 @@ const createPlans = async (req, res) => {
   }
 };
 
-// Assign a plan to a user
+const getAllPlans = async (req, res) => {
+  const plans=await Plan.find()
+  if(!plans){
+    return res.status(200).json({ message: 'No plans are available' });
+  }
+  return res.json(plans);
+}
+
 const assignPlanToUser = async (req, res) => {
   try {
     const { userId, planName } = req.body;
@@ -21,12 +28,10 @@ const assignPlanToUser = async (req, res) => {
     if (!plan) {
       return res.status(404).json({ message: 'Plan not found' });
     }
-
     const user = await User.findById(userId);
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
     }
-
     user.plan = plan._id;
     await user.save();
     res.status(200).json({ message: 'Plan assigned successfully', user });
@@ -35,4 +40,4 @@ const assignPlanToUser = async (req, res) => {
   }
 };
 
-module.exports = { assignPlanToUser, createPlans };
+module.exports = { assignPlanToUser, createPlans, getAllPlans };
