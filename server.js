@@ -7,6 +7,7 @@ const port = 3000;
 const admin = require("firebase-admin");
 const userRouter = require("./routes/user");
 const authrouter = require("./routes/auth");
+const planRoutes = require("./routes/planRoutes")
 const animalshoproute = require("./routes/animalshop");
 const cartrouter = require("./routes/cart");
 const OrderRouter = require("./routes/order");
@@ -37,6 +38,7 @@ app.use(bodyParser.json({ limit: "50mb" }));
 app.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }));
 app.use("/", authrouter);
 app.use("/api/users", userRouter);
+app.use("/api/plans",planRoutes);
 app.use("/api/animalshop", animalshoproute);
 app.use("/api/cart", cartrouter);
 app.use("/api/product", productRouter);
