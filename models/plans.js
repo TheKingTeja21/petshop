@@ -10,8 +10,11 @@ const PlanSchema = new mongoose.Schema({
     type: Number, 
     required: true 
     },
-  features: [String], 
- 
-},{versionkey:false,timeStamp:true});
+  features: [String],
+  allowedFunctionalities: { // new field
+    type: Number,
+    required: true
+  }
+},{versionKey: false, timestamps: true});
 
 module.exports = mongoose.model("Plan", PlanSchema);

@@ -1,25 +1,31 @@
 const User = require('../models/User');
-const Plan = require('../models/Plan');
 
-const checkPlan = (requiredPlanName) => {
+const checkPlan = (requiredPlan) => {
   return async (req, res, next) => {
     try {
-      const user = await User.findById(req.user._id).populate('plan'); // Assuming req.user._id contains the authenticated user's ID
-      if (!user) {
-        return res.status(404).json({ message: 'User not found' });
+      const userId = req.user.id; // Assuming user ID is stored in req.user.id after token verification
+      const user = await User.findById(userId).populate('plan');
+
+      if (!user || !user.plan) {
+        return res.status(403).json({ message: 'No plan found for user' });
       }
 
-      if (!user.plan) {
-        return res.status(403).json({ message: 'No plan assigned to user' });
-      }
+      const userPlan = user.plan.name.toLowerCase();
+      const requiredPlanLower = requiredPlan.toLowerCase();
 
-      if (user.plan.name !== requiredPlanName) {
-        return res.status(403).json({ message: `Access restricted to ${requiredPlanName} plan users` });
-      }
+      const planHierarchy = {
+        silver: 1,
+        gold: 2,
+        premium: 3
+      };
 
-      next();
-    } catch (err) {
-      res.status(500).json({ message: err.message });
+      if (planHierarchy[userPlan] >= planHierarchy[requiredPlanLower]) {
+        next();
+      } else {
+        return res.status(403).json({ message: 'Insufficient plan privileges' });
+      }
+    } catch (error) {
+      return res.status(500).json({ message: 'Server error' });
     }
   };
 };
