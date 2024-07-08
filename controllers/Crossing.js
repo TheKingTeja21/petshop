@@ -107,13 +107,13 @@ module.exports={
               
                 return res.status(200).json({
                     category: Crossing.category,
-                    Bread_name: Crossing.Bread_name,
+                    Breed_name: Crossing.Breed_name,
                     Gender: Crossing.Gender,
                     available: Crossing.available,
                     imageurl: Crossing.imageurl,
                     mating_video: Crossing.mating_video,
-                    petQuality: Crossing.petQuality,
-                    petLeanage: Crossing.petLeanage,
+                    Quality: Crossing.Quality,
+                    Breed_Leanage: Crossing.Breed_Leanage,
                     age:Crossing.age,
                     price: Crossing.price,
                     vaccination:vaccinationDetails,

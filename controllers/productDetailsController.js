@@ -24,14 +24,14 @@ module.exports = {
               
                 return res.status(200).json({
                     category: product.category,
-                    Bread_name: product.Bread_name,
+                    Breed_name: product.Breed_name,
                     Gender: product.Gender,
                     available: product.available,
                     imageurl: product.imageurl,
-                    petParentsMatingVideo:product.petParentsMatingVideo,
+                    petParentsMatingVideo:product.petParentsMatingVideo||null,
                     petQuality: product.quality,
                     age:product.age,
-                    petLeanage: product.Bread_lineage,
+                    Breed_Leanage: product.Breed_Leanage,
                     vaccination: vaccinationsDetails,
                     price: product.price,
                     location: product.location
