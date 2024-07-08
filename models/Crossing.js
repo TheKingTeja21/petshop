@@ -11,6 +11,8 @@ const Crossing=  new mongoose.Schema({
     Address:{type:String,required:true},
     Contact_details:{type:String,required:true},
     location:{type:String,required:true},
+    age:{type:Number,required:true},
+    petLeanage:{type:String,required:true},
     userid:{type:mongoose.Schema.Types.ObjectId, ref:"User" }
 },{timestamps:true})
 

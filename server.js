@@ -17,6 +17,7 @@ const hospitalRouter = require("./routes/veteryhospital");
 const Crossing = require("./routes/Crossing");
 const animal = require("./routes/animal");
 const ABOUTpet= require("./routes/aboutepet");
+const Vaccination= require("./routes/vaccination");
 const mypet= require("./routes/mypet");
 const broding=require("./routes/Broding")
 const Hospital = require("./routes/Hospital")
@@ -50,6 +51,7 @@ app.use("/api/Broding",broding);
 app.use("/api/Hospital",Hospital);
 app.use("/api/mypet",mypet);
 app.use("/api/Aboutepet",ABOUTpet);
+app.use("/api/Vaccination",Vaccination);
 app.get("/", (req, res) => res.send("Hello World!"));
 app.listen(process.env.PORT || port, () =>
   console.log(`Example app listening on port ${process.env.PORT}!`)

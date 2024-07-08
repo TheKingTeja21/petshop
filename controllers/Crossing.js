@@ -1,4 +1,6 @@
+const Bording = require("../models/Bording");
 const Crossing= require("../models/Crossing");
+let paymentStatus = {};
 module.exports={
     createCrossingpeet: async(req,res)=>{
         const newCrossing = new Crossing(req.body);
@@ -84,5 +86,57 @@ module.exports={
             res.status(500).json(error);
             
         }
+    },
+    getCrossingDetails: async (req, res) => {
+        const { id } = req.params; 
+        const { userId } = req.body;
+
+        try {
+            const Crossing = await Crossing.findById(id);
+            if (!Crossing) {
+                return res.status(404).json({ message: 'Product not found' });
+            }
+
+            const hasPaid = paymentStatus[userId] && paymentStatus[userId][id];
+
+            if (hasPaid) {
+     
+                const vaccinationDetails = await Vaccination.find({ petId: id });
+                return res.status(200).json({ Crossing, vaccinationDetails });
+            } else {
+              
+                return res.status(200).json({
+                    category: Crossing.category,
+                    Bread_name: Crossing.Bread_name,
+                    Gender: Crossing.Gender,
+                    available: Crossing.available,
+                    imageurl: Crossing.imageurl,
+                    mating_video: Crossing.mating_video,
+                    petQuality: Crossing.petQuality,
+                    petLeanage: Crossing.petLeanage,
+                    age:Crossing.age,
+                    price: Crossing.price,
+                    vaccination:vaccinationDetails,
+                    location: Crossing.location
+                });
+            }
+        } catch (error) {
+            res.status(500).json({ message: error.message });
+        }
+    },
+    makePayment: async (req, res) => {
+        const { userId, productId } = req.body;
+
+        if (!userId || !productId) {
+            return res.status(400).json({ message: 'User ID and Product ID are required' });
+        }
+
+        if (!paymentStatus[userId]) {
+            paymentStatus[userId] = {};
+        }
+        paymentStatus[userId][productId] = true;
+
+        res.status(200).json({ message: 'Payment successful' });
     }
+
 }

@@ -10,11 +10,13 @@ const Productschema = new mongoose.Schema(
     quality: { type: String,required: true },
     price: { type: Number, required: true },  
     category: { type: String, required: true },
+    petParentsMatingVideo: { type: String, required: false},
     Bread_lineage: { type: String, required: true },
     Address: { type: String, required: true },
     Gender: { type: String, required: true },
     available: { type: String, required: true},
     location: { type: String, required: true},
+    age: { type: String,enum:['male','female'], required: true },
   },
   { timestamps: true }
 );
