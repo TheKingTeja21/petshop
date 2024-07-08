@@ -9,7 +9,16 @@ const Crossing=  new mongoose.Schema({
     Breeder_Name:{type:String,required:true},
     aadhar_Number:{type:Number,required:true},
     Address:{type:String,required:true},
-    Contact_Number:{type:String,required:true},
+    Contact_Number: {
+        type: String,
+        validate: {
+          validator: function (v) {
+            return /^\d{10}$/.test(v);
+          },
+          message: (props) => `${props.value} is not a valid 10-digit number!`,
+        },
+        required: true,
+      },
     location:{type:String,required:true},
     age:{type:Number,required:true},
     Breed_Leanage:{type:String,required:true},

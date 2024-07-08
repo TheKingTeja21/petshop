@@ -16,7 +16,17 @@ const Userschema = new mongoose.Schema(
       State: String,
     },
     animalshp: { type: mongoose.Schema.Types.ObjectId, ref: "Animalashop" },
-    phone: { type: Number, required: true, unique: true },
+    phone: {
+      type: String,
+      validate: {
+        validator: function (v) {
+          return /^\d{10}$/.test(v);
+        },
+        message: (props) => `${props.value} is not a valid 10-digit number!`,
+      },
+      required: true,
+      unique: true,
+    },
     userType: {
       type: String,
       default: "Client",
