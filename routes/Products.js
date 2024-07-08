@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const productcontroller = require("../controllers/productcontroller");
+const productDetailsController = require('../controllers/productDetailsController');
 const {verifyAdmin,verifyVendor} =require("../middleware/verifyToken")
 
 router.post("/",productcontroller.createProduct)
@@ -13,6 +14,8 @@ router.post('/animalshop/:id',verifyVendor,productcontroller.UpdateFoodId)
 router.get('/randomproduct',productcontroller.gatRandomProductbycode)
 router.get('/:category/:code',productcontroller.getRandomByCategoryandCode)
 router.post("/update/:id",productcontroller.EditProduct)
+router.post('/details/:id', productDetailsController.getProductDetails);
+router.post('/pay', productDetailsController.makePayment);
 
     
 module.exports = router
