@@ -15,7 +15,7 @@ const Productschema = new mongoose.Schema(
       },
       required: true,
     },
-    Bread_name: { type: String, required: true },
+    Breed_name: { type: String, required: true },
     quality: { type: String, required: true },
     price: { type: Number, required: true },
     category: { type: String, required: true },
