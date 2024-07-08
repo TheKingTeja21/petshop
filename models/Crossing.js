@@ -19,6 +19,7 @@ const Crossing=  new mongoose.Schema({
         },
         required: true,
       },
+      vaccination:{type:String,required:true},
     location:{type:String,required:true},
     age:{type:Number,required:true},
     Breed_Leanage:{type:String,required:true},

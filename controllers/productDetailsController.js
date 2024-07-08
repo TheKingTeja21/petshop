@@ -17,9 +17,7 @@ module.exports = {
             const hasPaid = paymentStatus[userId] && paymentStatus[userId][id];
 
             if (hasPaid) {
-     
-                const vaccinationDetails = await Vaccination.find({ petId: id });
-                return res.status(200).json({ product, vaccinationDetails });
+                return res.status(200).json({ product });
             } else {
               
                 return res.status(200).json({
@@ -32,7 +30,7 @@ module.exports = {
                     petQuality: product.quality,
                     age:product.age,
                     Breed_Leanage: product.Breed_Leanage,
-                    vaccination: vaccinationsDetails,
+                    vaccination: product.vaccination,
                     price: product.price,
                     location: product.location
                 });

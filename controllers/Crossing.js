@@ -101,8 +101,7 @@ module.exports={
 
             if (hasPaid) {
      
-                const vaccinationDetails = await Vaccination.find({ petId: id });
-                return res.status(200).json({ Crossing, vaccinationDetails });
+                return res.status(200).json({ Crossing });
             } else {
               
                 return res.status(200).json({
@@ -116,7 +115,7 @@ module.exports={
                     Breed_Leanage: Crossing.Breed_Leanage,
                     age:Crossing.age,
                     price: Crossing.price,
-                    vaccination:vaccinationDetails,
+                    vaccination:Crossing.vaccination,
                     location: Crossing.location
                 });
             }
