@@ -65,7 +65,7 @@ module.exports = {
           username: user.username,
           email: user.email,
           phone:user.phone,
-          adddress: user.address,
+          address: user.address,
           profile:user.profile,
         },
         process.env.SECRET_KEY_jWT,
