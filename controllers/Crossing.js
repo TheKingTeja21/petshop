@@ -11,18 +11,25 @@ module.exports={
       res.status(500).json(error.message);
     }
     },
-    getallCrossingpets: async(req,res)=>{
+    getallCrossingpets: async (req, res) => {
         try {
-            const Crossingpets= await Crossing.find()
-            if(!Crossingpets){
-                return res.status(404).json("PETS not found");
-            }
-            res.status(200).json(Crossingpets)
+          const { breed_name, gender, age } = req.query;
+    
+          let filters = {};
+    
+          if (breed_name) filters.breed_name = new RegExp(breed_name, 'i'); 
+          if (gender) filters.gender = gender;
+          if (age) filters.age = parseInt(age);
+    
+          const Crossingpets = await Crossing.find(filters);
+          if (!Crossingpets || Crossingpets.length === 0) {
+            return res.status(404).json("PETS not found");
+          }
+          res.status(200).json(Crossingpets);
         } catch (error) {
-            res.status(500).json(error.message);
-            
+          res.status(500).json(error.message);
         }
-    },
+      },
     changeimage: async(req,res)=>{
         const {name,nails,Color,Gender,imageurl,Age,description,Fathername,Mothername,phone}= req.body
         const Petid= req.params.user

@@ -13,13 +13,25 @@ module.exports = {
   },
   getallProduct: async (req, res) => {
     try {
-      const allProducts = await Product.find().sort({ createdAt: -1 });
+      const { gender, minPrice, maxPrice, breedName, location, isSoldout, age } = req.query;
+  
+      let filters = { isSoldout: false }; // Set default filter for isSoldout
+  
+      if (gender) filters.Gender = gender;
+      if(age) filters.age = age;
+      if (minPrice) filters.price = { ...filters.price, $gte: parseFloat(minPrice) };
+      if (maxPrice) filters.price = { ...filters.price, $lte: parseFloat(maxPrice) };
+      if (breedName) filters.Breed_name = new RegExp(breedName, 'i'); // case-insensitive regex search
+      if (location) filters.location = new RegExp(location, 'i'); // case-insensitive regex search
+      if (isSoldout !== undefined) filters.isSoldout = isSoldout; // Override default if query parameter is provided
+  
+      const allProducts = await Product.find(filters).sort({ createdAt: -1 });
       res.status(200).json(allProducts);
     } catch (error) {
       res.status(500).json(error.message);
     }
   },
-
+  
   product: async (req, res) => {
     const Productid = req.params.id;
     console.log("====================================");
@@ -37,6 +49,7 @@ module.exports = {
       res.status(500).json(error.message);
     }
   },
+
   search: async (req, res) => {
     try {
       const results = await Product.aggregate([
@@ -55,6 +68,19 @@ module.exports = {
       res.status(200).json(results);
     } catch (error) {
       res.status(500).json("failed to get the product");
+    }
+  },
+  getByName: async (req, res) => {
+    const {Breed_name}=req.body
+    try {
+      const products = await Product.findOne({Breed_name:Breed_name});
+      if(!products)
+      {
+        return res.status(404).json("Produts Not Found")
+      }
+      res.status(200).json(products);
+    } catch (error) {
+      res.status(500).json(error.message);
     }
   },
   getVendorProducts: async (req, res) => {

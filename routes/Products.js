@@ -5,6 +5,7 @@ const {verifyAdmin,verifyVendor} =require("../middleware/verifyToken")
 
 router.post("/",productcontroller.createProduct)
 router.get("/getproduct/:id",productcontroller.product)
+router.get("/getproductByName/:id",productcontroller.getByName)
 router.get('/allproducts',productcontroller.getallProduct)
 router.get('/Petscategory/:id',productcontroller.categoryProducts)
 router.get('/search/:key',productcontroller.search)
