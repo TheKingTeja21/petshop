@@ -13,9 +13,9 @@ module.exports = {
   },
   getallProduct: async (req, res) => {
     try {
-      const { gender, minPrice, maxPrice, breedName, location, isSoldout, age } = req.query;
+      const { gender, minPrice, maxPrice, breedName, location, age, availablility_details } = req.query;
   
-      let filters = { isSoldout: false }; // Set default filter for isSoldout
+      let filters = { availablility_details: false }; // Set default filter for isSoldout
   
       if (gender) filters.Gender = gender;
       if(age) filters.age = age;
@@ -23,7 +23,7 @@ module.exports = {
       if (maxPrice) filters.price = { ...filters.price, $lte: parseFloat(maxPrice) };
       if (breedName) filters.Breed_name = new RegExp(breedName, 'i'); // case-insensitive regex search
       if (location) filters.location = new RegExp(location, 'i'); // case-insensitive regex search
-      if (isSoldout !== undefined) filters.isSoldout = isSoldout; // Override default if query parameter is provided
+      if (availablility_details !== undefined) filters.availablility_details = availablility_details; // Override default if query parameter is provided
   
       const allProducts = await Product.find(filters).sort({ createdAt: -1 });
       res.status(200).json(allProducts);

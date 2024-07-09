@@ -47,11 +47,10 @@ const Productschema = new mongoose.Schema(
     Breed_lineage: { type: String, required: true },
     Address: { type: String, required: true },
     Gender: { type: String, required: true },
-    availablility_details: { type: String, required: true },
+    availablility_details: {  type: Boolean, required: true, default: false },
     location: { type: String, required: true },
     age: { type: Number, required: true },
     vaccination: { type: String, required: true },
-    isSoldout: { type: Boolean, required: true, default: false},
   },
   { timestamps: true }
 );
