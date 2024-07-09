@@ -64,6 +64,7 @@ module.exports = {
           usertype: user.userType,
           username: user.username,
           email: user.email,
+          aadhar_Number:user.aadhar_Number,
           phone:user.phone,
           address: user.address,
           profile:user.profile,

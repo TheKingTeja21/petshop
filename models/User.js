@@ -17,6 +17,7 @@ const Userschema = new mongoose.Schema(
       State: String,
     },
     animalshp: { type: mongoose.Schema.Types.ObjectId, ref: "Animalashop" },
+    aadhar_Number: { type: String, required: true},
     phone: {
       type: String,
       validate: {
