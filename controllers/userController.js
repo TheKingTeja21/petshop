@@ -31,7 +31,10 @@ module.exports ={
         const userId = req.user.id;
         try {
             const user= await User.findByIdAndUpdate(userId,{
-                $set:{fullName:req.body.fullName,address:req.body.address}
+                $set:{
+                    fullName:req.body.fullName,
+                    address:req.body.address
+                }
             },{new:true})
             res.status(200).json("updated successfully")
         } catch (error) {
