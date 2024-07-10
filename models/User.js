@@ -17,7 +17,16 @@ const Userschema = new mongoose.Schema(
       State: String,
     },
     animalshp: { type: mongoose.Schema.Types.ObjectId, ref: "Animalashop" },
-    aadhar_Number: { type: String, required: true},
+    aadhar_Number: {
+      type: String,
+      validate: {
+        validator: function (v) {
+          return /^\d{12}$/.test(v);
+        },
+        message: (props) => `${props.value} is not a valid 12-digit Aadhar number!`,
+      },
+      required: true,
+    },
     phone: {
       type: String,
       validate: {

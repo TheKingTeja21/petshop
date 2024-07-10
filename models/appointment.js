@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const ffmpeg = require("fluent-ffmpeg");
 
 // Function to check video duration
-export const checkVideoDuration = async (videoPath) => {
+const checkVideoDuration = async (videoPath) => {
   return new Promise((resolve, reject) => {
     ffmpeg.ffprobe(videoPath, (err, metadata) => {
       if (err) {
@@ -17,7 +17,7 @@ export const checkVideoDuration = async (videoPath) => {
 
 const AppointmentSchema = new mongoose.Schema(
   {
-    userId:{ type:mongoose.Schema.Types.ObjectId, ref:"User"},
+    userId: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
     ownerName: { type: String, required: true },
     category: { type: String, required: true },
     petBreed: { type: String, required: true },
@@ -77,8 +77,25 @@ const AppointmentSchema = new mongoose.Schema(
         message: (props) => `The number of days (${props.value}) does not match the difference between the from and to dates!`,
       },
     },
+    acceptanceTime: { type: Date }, // New field to store the acceptance time
   },
   { timestamps: true }
 );
+
+// Virtual field to calculate the expiry time (24 hours after acceptance)
+AppointmentSchema.virtual('expiryTime').get(function() {
+  if (this.acceptanceTime) {
+    const expiryTime = new Date(this.acceptanceTime);
+    expiryTime.setHours(expiryTime.getHours() + 24);
+    return expiryTime;
+  }
+  return null;
+});
+
+// Method to accept the appointment
+AppointmentSchema.methods.acceptAppointment = function() {
+  this.acceptanceTime = new Date();
+  return this.save();
+};
 
 module.exports = mongoose.model("Appointment", AppointmentSchema);
