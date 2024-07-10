@@ -65,19 +65,10 @@ const AppointmentSchema = new mongoose.Schema(
     howManyDays: {
       type: Number,
       required: true,
-      validate: {
-        validator: function () {
-          if (this.fromDate && this.toDate) {
-            const diffTime = Math.abs(this.toDate - this.fromDate);
-            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-            return this.howManyDays === diffDays;
-          }
-          return true;
-        },
-        message: (props) => `The number of days (${props.value}) does not match the difference between the from and to dates!`,
-      },
     },
+    status: { type: String, enum: ['pending', 'accepted', 'rejected', 'completed'], default: 'pending' },
     acceptanceTime: { type: Date }, // New field to store the acceptance time
+    rejectionReason: { type: String }, 
   },
   { timestamps: true }
 );
@@ -95,6 +86,12 @@ AppointmentSchema.virtual('expiryTime').get(function() {
 // Method to accept the appointment
 AppointmentSchema.methods.acceptAppointment = function() {
   this.acceptanceTime = new Date();
+  this.status = 'accepted';
+  return this.save();
+};
+
+AppointmentSchema.methods.rejectAppointment = function() {
+  this.status = 'rejected';
   return this.save();
 };
 
