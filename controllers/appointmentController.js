@@ -16,7 +16,9 @@ module.exports = {
         toDate,
         howManyDays,
       } = req.body;
-
+      if (!ownerName || !category || !petBreed || !age  || !aadharNo || !phoneNo || !currentAddress || !fromDate || !toDate || !howManyDays) {
+        return res.status(400).json({ error: "All fields are required" });
+      }
       const newAppointment = new Appointment({
         ownerName: ownerName,
         category,
