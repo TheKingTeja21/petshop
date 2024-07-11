@@ -24,29 +24,29 @@ const AppointmentSchema = new mongoose.Schema(
     media: {
       type: String,
       required: true,
-    //   validate: {
-    //     validator: async function (v) {
-    //       if (v.endsWith(".mp4")) {
-    //         try {
-    //           return await checkVideoDuration(v);
-    //         } catch (error) {
-    //           return false;
-    //         }
-    //       }
-    //       return true;
-    //     },
-    //     message: () => `Video duration must not be more than 10 seconds!`,
-    //   },
-    // },
+      validate: {
+        validator: async function (v) {
+          if (v.endsWith(".mp4")) {
+            try {
+              return await checkVideoDuration(v);
+            } catch (error) {
+              return false;
+            }
+          }
+          return true;
+        },
+        message: () => `Video duration must not be more than 10 seconds!`,
+      },
+    },
     aadharNo: {
       type: String,
       required: true,
-      // validate: {
-      //   validator: function (v) {
-      //     return /^\d{12}$/.test(v);
-      //   },
-      //   message: (props) => `${props.value} is not a valid Aadhar number!`,
-      // },
+      validate: {
+        validator: function (v) {
+          return /^\d{12}$/.test(v);
+        },
+        message: (props) => `${props.value} is not a valid Aadhar number!`,
+      },
     },
     phoneNo: {
       type: String,
@@ -59,22 +59,22 @@ const AppointmentSchema = new mongoose.Schema(
       },
     },
     currentAddress: { type: String, required: true },
-    fromDate: { type: String, required: true },
-    toDate: { type: String, required: true },
+    fromDate: { type: Date, required: true },
+    toDate: { type: Date, required: true },
     howManyDays: {
       type: Number,
       required: true,
-      // validate: {
-      //   validator: function (value) {
-      //     const start = new Date(this.fromDate);
-      //     const end = new Date(this.toDate);
-      //     const calculatedDays = Math.ceil(
-      //       (end - start) / (1000 * 60 * 60 * 24)
-      //     );
-      //     return value === calculatedDays;
-      //   },
-      //   message: (props) => `How many days should match the date difference!`,
-      // },
+      validate: {
+        validator: function (value) {
+          const start = new Date(this.fromDate);
+          const end = new Date(this.toDate);
+          const calculatedDays = Math.ceil(
+            (end - start) / (1000 * 60 * 60 * 24)
+          );
+          return value === calculatedDays;
+        },
+        message: (props) => `How many days should match the date difference!`,
+      },
     },
     status: { type: String, enum: ['pending', 'accepted', 'rejected', 'completed'], default: 'pending' },
     acceptanceTime: { type: Date }, // New field to store the acceptance time
