@@ -17,7 +17,6 @@ const checkVideoDuration = async (videoPath) => {
 
 const AppointmentSchema = new mongoose.Schema(
   {
-    userId: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
     ownerName: { type: String, required: true },
     category: { type: String, required: true },
     petBreed: { type: String, required: true },
