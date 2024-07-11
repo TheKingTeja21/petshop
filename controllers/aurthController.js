@@ -54,7 +54,7 @@ module.exports = {
     }
   },
   register: async (req, res) => {
-    const { username, email, phone, password, Aadhar_Number,userType} = req.body;
+    const { username, email, phone, password, Aadhar_Number,} = req.body;
     try {
       let user = await User.findOne({ email });
       if (user) {
@@ -69,7 +69,6 @@ module.exports = {
           process.env.SECRET_KEY
         ).toString(),
         aadhar_Number:Aadhar_Number,
-        userType
       });
       await user.save();
       res.status(201).json({ message: "User registered successfully" });
