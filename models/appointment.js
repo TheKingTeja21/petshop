@@ -23,7 +23,7 @@ const AppointmentSchema = new mongoose.Schema(
     age: { type: Number, required: true },
     media: {
       type: String,
-      required: true,
+      required: false,
       validate: {
         validator: async function (v) {
           if (v.endsWith(".mp4")) {
