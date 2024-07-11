@@ -53,6 +53,30 @@ module.exports = {
       }
     }
   },
+  register: async (req, res) => {
+    const { username, email, phone, password, Aadhar_Number,userType} = req.body;
+    try {
+      let user = await User.findOne({ email });
+      if (user) {
+        return res.status(400).json({ message: "User already exists" });
+      }
+      user = new User({
+        username,
+        email,
+        phone,
+        password: Crypto.AES.encrypt(
+          password,
+          process.env.SECRET_KEY
+        ).toString(),
+        aadhar_Number:Aadhar_Number,
+        userType
+      });
+      await user.save();
+      res.status(201).json({ message: "User registered successfully" });
+  } catch (error) {
+    console.error("User registration error:", error.message);
+    res.status(500).json({ message: "Server error" });
+  }},
   loginuser: async (req, res) => {
     try {
       const user = await User.findOne({ email: req.body.email });
