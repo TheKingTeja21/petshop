@@ -18,7 +18,7 @@ module.exports = {
       } = req.body;
 
       const newAppointment = new Appointment({
-        ownerName,
+        ownerName: ownerName,
         category,
         petBreed,
         age,
