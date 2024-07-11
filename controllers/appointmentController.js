@@ -32,7 +32,7 @@ module.exports = {
         toDate,
         howManyDays,
       });
-
+      res.send(newAppointment);
       await newAppointment.save();
       res.status(201).json({ message: 'Appointment created successfully!' });
     } catch (error) {
