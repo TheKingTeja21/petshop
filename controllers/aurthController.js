@@ -16,7 +16,6 @@ module.exports = {
           const userResponse = await admin.auth().createUser({
             email: user.email,
             emailVerified: false,
-            fullName: user.fullName,
             password: user.password,
             disabled: false,
           });
