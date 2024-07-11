@@ -25,18 +25,18 @@ const AppointmentSchema = new mongoose.Schema(
       type: String,
       required: true,
       validate: {
-      //   validator: async function (v) {
-      //     if (v.endsWith(".mp4")) {
-      //       try {
-      //         return await checkVideoDuration(v);
-      //       } catch (error) {
-      //         return false;
-      //       }
-      //     }
-      //     return true;
-      //   },
-      //   message: () => `Video duration must not be more than 10 seconds!`,
-      // },
+        validator: async function (v) {
+          if (v.endsWith(".mp4")) {
+            try {
+              return await checkVideoDuration(v);
+            } catch (error) {
+              return false;
+            }
+          }
+          return true;
+        },
+        message: () => `Video duration must not be more than 10 seconds!`,
+      },
     },
     aadharNo: {
       type: String,
@@ -78,7 +78,7 @@ const AppointmentSchema = new mongoose.Schema(
     },
     status: { type: String, enum: ['pending', 'accepted', 'rejected', 'completed'], default: 'pending' },
     acceptanceTime: { type: Date }, // New field to store the acceptance time
-    rejectionReason: { type: String }, 
+    rejectionReason: { type: String }, // Field to store rejection reason
   },
   { timestamps: true }
 );
