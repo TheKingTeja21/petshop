@@ -3,7 +3,20 @@ const Appointment = require("../models/appointment");
 module.exports = {
   createAppointment: async (req, res) => {
     try {
-      const { ownerName, category, petBreed, age, media, aadharNo, phoneNo, currentAddress, fromDate, toDate, howManyDays } = req.body;
+      const {
+        ownerName,
+        category,
+        petBreed,
+        age,
+        media,
+        aadharNo,
+        phoneNo,
+        currentAddress,
+        fromDate,
+        toDate,
+        howManyDays,
+      } = req.body;
+
       const newAppointment = new Appointment({
         ownerName,
         category,
@@ -17,6 +30,7 @@ module.exports = {
         toDate,
         howManyDays,
       });
+
       await newAppointment.save();
       res.status(201).json({ message: 'Appointment created successfully!' });
     } catch (error) {
@@ -24,6 +38,7 @@ module.exports = {
       res.status(500).json({ error: 'Internal server error' });
     }
   },
+
 
   acceptAppointment: async (req, res) => {
     const { appointment_id } = req.query;

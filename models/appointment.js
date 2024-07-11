@@ -25,18 +25,18 @@ const AppointmentSchema = new mongoose.Schema(
       type: String,
       required: true,
       validate: {
-        validator: async function (v) {
-          if (v.endsWith(".mp4")) {
-            try {
-              return await checkVideoDuration(v);
-            } catch (error) {
-              return false;
-            }
-          }
-          return true;
-        },
-        message: () => `Video duration must not be more than 10 seconds!`,
-      },
+      //   validator: async function (v) {
+      //     if (v.endsWith(".mp4")) {
+      //       try {
+      //         return await checkVideoDuration(v);
+      //       } catch (error) {
+      //         return false;
+      //       }
+      //     }
+      //     return true;
+      //   },
+      //   message: () => `Video duration must not be more than 10 seconds!`,
+      // },
     },
     aadharNo: {
       type: String,
