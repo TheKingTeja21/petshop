@@ -41,23 +41,23 @@ const AppointmentSchema = new mongoose.Schema(
     },
     aadharNo: {
       type: String,
+      required: true,
       validate: {
         validator: function (v) {
           return /^\d{12}$/.test(v);
         },
-        message: (props) => `${props.value} is not a valid 12-digit Aadhar number!`,
+        message: (props) => `${props.value} is not a valid Aadhar number!`,
       },
-      required: true,
     },
     phoneNo: {
       type: String,
+      required: true,
       validate: {
         validator: function (v) {
           return /^\d{10}$/.test(v);
         },
-        message: (props) => `${props.value} is not a valid 10-digit phone number!`,
+        message: (props) => `${props.value} is not a valid phone number!`,
       },
-      required: true,
     },
     currentAddress: { type: String, required: true },
     fromDate: { type: Date, required: true },
@@ -65,6 +65,17 @@ const AppointmentSchema = new mongoose.Schema(
     howManyDays: {
       type: Number,
       required: true,
+      validate: {
+        validator: function (value) {
+          const start = new Date(this.fromDate);
+          const end = new Date(this.toDate);
+          const calculatedDays = Math.ceil(
+            (end - start) / (1000 * 60 * 60 * 24)
+          );
+          return value === calculatedDays;
+        },
+        message: (props) => `How many days should match the date difference!`,
+      },
     },
     status: { type: String, enum: ['pending', 'accepted', 'rejected', 'completed'], default: 'pending' },
     acceptanceTime: { type: Date }, // New field to store the acceptance time
@@ -90,8 +101,10 @@ AppointmentSchema.methods.acceptAppointment = function() {
   return this.save();
 };
 
-AppointmentSchema.methods.rejectAppointment = function() {
+// Method to reject the appointment with a reason
+AppointmentSchema.methods.rejectAppointment = function(rejectionReason) {
   this.status = 'rejected';
+  this.rejectionReason = rejectionReason;
   return this.save();
 };
 

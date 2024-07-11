@@ -3,11 +3,25 @@ const Appointment = require("../models/appointment");
 module.exports = {
   createAppointment: async (req, res) => {
     try {
-      const newAppointment = new Appointment(req.body);
-      const savedAppointment = await newAppointment.save();
-      res.status(200).json({ message: "Appointment created successfully", appointment: savedAppointment });
+      const { ownerName, category, petBreed, age, media, aadharNo, phoneNo, currentAddress, fromDate, toDate, howManyDays } = req.body;
+      const newAppointment = new Appointment({
+        ownerName,
+        category,
+        petBreed,
+        age,
+        media,
+        aadharNo,
+        phoneNo,
+        currentAddress,
+        fromDate,
+        toDate,
+        howManyDays,
+      });
+      await newAppointment.save();
+      res.status(201).json({ message: 'Appointment created successfully!' });
     } catch (error) {
-      res.status(500).json({ message: error.message });
+      console.error(error);
+      res.status(500).json({ error: 'Internal server error' });
     }
   },
 
@@ -41,11 +55,7 @@ module.exports = {
       }
 
       await appointment.rejectAppointment(reason);
-
-      res.status(200).json({
-        message: "Appointment rejected successfully",
-        status: appointment.status
-      });
+      res.status(200).json({ message: 'Appointment rejected' });
     } catch (error) {
       res.status(500).json({ message: error.message });
     }
