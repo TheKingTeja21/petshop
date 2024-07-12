@@ -106,7 +106,7 @@ AppointmentSchema.methods.rejectAppointment = function(rejectionReason) {
   this.rejectionReason = rejectionReason;
   return this.save();
 };
-AppointmentSchema.methods.CompleteAppointment = function() {
+AppointmentSchema.methods.completeAppointment = function() {
   this.status = 'completed';
   return this.save();
 };
