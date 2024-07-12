@@ -77,7 +77,7 @@ module.exports = {
     }
   },
   completeAppointment: async (req, res) => {
-    const {appointment_id  } = req.body;
+    const {appointment_id  } = req.params;
     try {
       const appointment = await Appointment.findById(appointment_id);
       if (!appointment) {
