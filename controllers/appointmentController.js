@@ -63,8 +63,7 @@ module.exports = {
   },
 
   rejectAppointment: async (req, res) => {
-    const { appointment_id } = req.query;
-    const { reason } = req.body;
+    const { reason,appointment_id  } = req.body;
     try {
       const appointment = await Appointment.findById(appointment_id);
       if (!appointment) {
