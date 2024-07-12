@@ -85,7 +85,7 @@ module.exports = {
       }
 
       await appointment.completeAppointment();
-      res.status(200).json({ message: 'Appointment rejected' });
+      res.status(200).json({ message: 'Appointment completed' });
     } catch (error) {
       res.status(500).json({ message: error.message });
     }
