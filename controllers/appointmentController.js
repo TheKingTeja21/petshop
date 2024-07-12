@@ -77,7 +77,7 @@ module.exports = {
     }
   },
   completeAppointment: async (req, res) => {
-    const {appointment_id  } = req.query;
+    const  appointment_id   = req.query;
     try {
       const appointment = await Appointment.findById(appointment_id);
       if (!appointment) {
@@ -85,7 +85,7 @@ module.exports = {
       }
 
       await appointment.completeAppointment();
-      res.status(200).json({ message: 'Appointment Completed' });
+      res.status(200).json({ message: 'Appointment rejected' });
     } catch (error) {
       res.status(500).json({ message: error.message });
     }
