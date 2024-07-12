@@ -6,6 +6,6 @@ router.post("/accept", appointmentController.acceptAppointment);
 router.put("/edit", appointmentController.editAppointment);
 router.put("/reject", appointmentController.rejectAppointment);
 router.get("/getall", appointmentController.getAppointmentsByStatus);
-router.put("/complete", appointmentController.completeAppointment);
+router.post("/complete", appointmentController.completeAppointment);
 
 module.exports = router;
