@@ -106,5 +106,8 @@ AppointmentSchema.methods.rejectAppointment = function(rejectionReason) {
   this.rejectionReason = rejectionReason;
   return this.save();
 };
-
+AppointmentSchema.methods.CompleteAppointment = function() {
+  this.status = 'completed';
+  return this.save();
+};
 module.exports = mongoose.model("Appointment", AppointmentSchema);

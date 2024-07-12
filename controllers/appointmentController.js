@@ -76,6 +76,20 @@ module.exports = {
       res.status(500).json({ message: error.message });
     }
   },
+  completeAppointment: async (req, res) => {
+    const {appointment_id  } = req.body;
+    try {
+      const appointment = await Appointment.findById(appointment_id);
+      if (!appointment) {
+        return res.status(404).json({ message: 'Appointment not found' });
+      }
+
+      await appointment.completeAppointment();
+      res.status(200).json({ message: 'Appointment rejected' });
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  },
 
   getAppointmentsByStatus: async (req, res) => {
     const { status } = req.query;
