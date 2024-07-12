@@ -84,8 +84,8 @@ module.exports = {
         return res.status(404).json({ message: 'Appointment not found' });
       }
 
-      await appointment.completeAppointment();
-      res.status(200).json({ message: 'Appointment rejected' });
+      await appointment.CompleteAppointment();
+      res.status(200).json({ message: 'Appointment Completed' });
     } catch (error) {
       res.status(500).json({ message: error.message });
     }
