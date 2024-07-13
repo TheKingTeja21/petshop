@@ -106,6 +106,7 @@ module.exports = {
     const { appointment_id ,howManyDays } = req.body;
     try {
       const appointment = await Appointment.findById(appointment_id);
+      res.send(appointment)
       if (!appointment) {
         return res.status(404).json({ message: 'Appointment not found' });
       }
