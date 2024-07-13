@@ -111,7 +111,6 @@ module.exports = {
       }
 
       if (howManyDays) appointment.howManyDays = howManyDays;
-      if (intime) appointment.acceptanceTime = intime;
 
       const updatedAppointment = await appointment.save();
       res.status(200).json({ message: "Appointment updated successfully", appointment: updatedAppointment });
