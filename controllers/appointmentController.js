@@ -103,7 +103,7 @@ module.exports = {
 
   editAppointment: async (req, res) => {
    
-    const { appointment_id ,howManyDays, intime } = req.body;
+    const { appointment_id ,howManyDays } = req.body;
     try {
       const appointment = await Appointment.findById(appointment_id);
       if (!appointment) {
