@@ -103,7 +103,7 @@ module.exports = {
 
   editAppointment: async (req, res) => {
     const { appointment_id } = req.query;
-    const { howManyDays, intime, outtime } = req.body;
+    const { howManyDays, intime } = req.body;
     try {
       const appointment = await Appointment.findById(appointment_id);
       if (!appointment) {
@@ -111,8 +111,7 @@ module.exports = {
       }
 
       if (howManyDays) appointment.howManyDays = howManyDays;
-      if (intime) appointment.intime = intime;
-      if (outtime) appointment.outtime = outtime;
+      if (intime) appointment.acceptanceTime = intime;
 
       const updatedAppointment = await appointment.save();
       res.status(200).json({ message: "Appointment updated successfully", appointment: updatedAppointment });
