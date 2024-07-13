@@ -1,4 +1,5 @@
 const Product = require("../models/Product");
+const { getProductDetails } = require("./productDetailsController");
 
 module.exports = {
   createProduct: async (req, res) => {
@@ -257,4 +258,40 @@ module.exports = {
       res.status(201).json("succfulley UPDATE");
     } catch (error) {}
   },
+  SoldoutProduct: async (req, res) => {
+    const productid = req.query;
+    try {
+      const exstingProduct = await Product.findById(productid);
+      if (!exstingProduct) {
+        return res.status(404).json("NOT FOUND");
+      }
+      exstingProduct.availablility_details = false;
+      await exstingProduct.save();
+      res.status(201).json("successfully updated");
+    } catch (error) {
+      res.status(500).json({message: error.message});
+    }
+  },
+  getProductByAvailability: async (req, res) => {
+    try {
+      const product = await Product.find({ availablility_details: true });
+      if (!product || product.length === 0) {
+        return res.status(404).json("product not found in animalshop");
+      }
+      res.status(200).json(product);
+    } catch (error) {
+      res.status(500).json({message: error.message});
+  }
+},
+getProductByNotAvailable: async (req, res) => {
+  try {
+    const product = await Product.find({ availablility_details: false });
+    if (!product || product.length === 0) {
+      return res.status(404).json("product not found in animalshop");
+    }
+    res.status(200).json(product);
+  } catch (error) {
+    res.status(500).json({message: error.message});
+}
+}
 };

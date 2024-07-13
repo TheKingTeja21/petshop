@@ -17,6 +17,9 @@ router.get('/:category/:code',productcontroller.getRandomByCategoryandCode)
 router.post("/update/:id",productcontroller.EditProduct)
 router.post('/details/:id', productDetailsController.getProductDetails);
 router.post('/pay', productDetailsController.makePayment);
+router.post('/soldout', productcontroller.SoldoutProduct);
+router.get('/available', productcontroller.getProductByAvailability);
+router.get('/notAvailable', productcontroller.getProductByNotAvailable);
 
     
 module.exports = router
