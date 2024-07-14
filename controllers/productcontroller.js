@@ -14,9 +14,9 @@ module.exports = {
   },
   getallProduct: async (req, res) => {
     try {
-      const { gender, minPrice, maxPrice, breedName, location, age, availablility_details } = req.query;
+      const { gender, minPrice, maxPrice, breedName, location, age, status } = req.query;
   
-      let filters = { availablility_details: false }; // Set default filter for isSoldout
+      let filters = { status: false }; // Set default filter for isSoldout
   
       if (gender) filters.Gender = gender;
       if(age) filters.age = age;
@@ -24,7 +24,7 @@ module.exports = {
       if (maxPrice) filters.price = { ...filters.price, $lte: parseFloat(maxPrice) };
       if (breedName) filters.Breed_name = new RegExp(breedName, 'i'); // case-insensitive regex search
       if (location) filters.location = new RegExp(location, 'i'); // case-insensitive regex search
-      if (availablility_details !== undefined) filters.availablility_details = availablility_details; // Override default if query parameter is provided
+      if (status !== undefined) filters.status = status; // Override default if query parameter is provided
   
       const allProducts = await Product.find(filters).sort({ createdAt: -1 });
       res.status(200).json(allProducts);
@@ -265,7 +265,7 @@ module.exports = {
       if (!exstingProduct) {
         return res.status(404).json("NOT FOUND");
       }
-      exstingProduct.availablility_details = false;
+      exstingProduct.status = false;
       await exstingProduct.save();
       res.status(201).json("successfully updated");
     } catch (error) {
@@ -274,7 +274,7 @@ module.exports = {
   },
   getProductByAvailability: async (req, res) => {
     try {
-      const product = await Product.find({ availablility_details: true });
+      const product = await Product.find({ status: true });
       if (!product || product.length === 0) {
         return res.status(404).json("product not found in animalshop");
       }
@@ -285,7 +285,7 @@ module.exports = {
 },
 getProductByNotAvailable: async (req, res) => {
   try {
-    const product = await Product.find({ availablility_details: false });
+    const product = await Product.find({ status: false });
     if (!product || product.length === 0) {
       return res.status(404).json("product not found in animalshop");
     }

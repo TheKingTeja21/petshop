@@ -15,7 +15,7 @@ const Crossing=  new mongoose.Schema({
       required: true,},
     mating_video:{ 
       type: String,
-      required: true,
+      required: false,
       validate: {
         validator: async function (v) {
           if (v.endsWith(".mp4")) {
@@ -32,6 +32,7 @@ const Crossing=  new mongoose.Schema({
     Breeder_Name:{type:String,required:true},
     aadhar_Number:{type:Number,required:true},
     Address:{type:String,required:true},
+    status:{type:String,required:true},
     Contact_Number: {
         type: String,
         validate: {
