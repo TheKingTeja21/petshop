@@ -30,7 +30,7 @@ module.exports = {
             uid: userResponse.uid,
             phone: user.phone,
             userType: user.userType,
-            aadhar_Number: user.Adhara_Number,
+            aadhar_Number: user.aadhar_Number,
           });
 
           await newUser.save();

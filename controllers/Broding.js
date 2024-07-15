@@ -26,7 +26,7 @@ module.exports = {
         }
     },
     updateBroding: async (req, res) => {
-        const { id } = req.params;
+        const { id } = req.query;
         const { Bread, Rate } = req.body;
 
         if (!Bread && !Rate) {
