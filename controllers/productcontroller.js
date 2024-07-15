@@ -274,7 +274,7 @@ module.exports = {
   },
   getProductByAvailability: async (req, res) => {
     try {
-      const product = await Product.find({ status: true });
+      const product = await Product.find({ status: 'available' });
       if (!product || product.length === 0) {
         return res.status(404).json("product not found in animalshop");
       }
@@ -285,7 +285,7 @@ module.exports = {
 },
 getProductByNotAvailable: async (req, res) => {
   try {
-    const product = await Product.find({ status: false });
+    const product = await Product.find({ status: 'unavailable' });
     if (!product || product.length === 0) {
       return res.status(404).json("product not found in animalshop");
     }
