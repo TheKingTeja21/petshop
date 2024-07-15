@@ -17,6 +17,7 @@ const accessoriesRouter = require("./routes/accerssories");
 const hospitalRouter = require("./routes/veteryhospital");
 const appointmentRouter = require("./routes/appointment");
 const Crossing = require("./routes/Crossing");
+const deliveryRoutes = require("./routes/deliveryRoutes"); ///
 const animal = require("./routes/animal");
 const ABOUTpet= require("./routes/aboutepet");
 const Vaccination= require("./routes/vaccination");
@@ -56,6 +57,7 @@ app.use("/api/Aboutepet",ABOUTpet);
 app.use("/api/Vaccination",Vaccination);
 app.use("/api/appointment",appointmentRouter);
 app.use("/api/payment",paymentRouter);
+app.use("/api/delivery",deliveryRoutes);
 app.get("/", (req, res) => res.send("Hello World!"));
 app.listen(process.env.PORT || port, () =>
   console.log(`Example app listening on port ${process.env.PORT}!`)
