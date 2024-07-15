@@ -55,14 +55,14 @@ module.exports = {
   },
   register: async (req, res) => {
     try {
-      const { username, email, password, phone, aadhar_Number } = req.body;
+      const { username, email, password, phone, aadhar_Number,uid } = req.body;
       // Check for existing user
       const existingUser = await User.findOne({ email });
       if (existingUser) {
         return res.status(400).json({ message: 'User already exists' });
       }
       // Create new user
-      const newUser = new User({ username, email, password, phone, aadhar_Number });
+      const newUser = new User({ username, email, password, phone, aadhar_Number,uid });
       await newUser.save();
       res.status(201).json({ message: 'User created successfully' });
     } catch (error) {
