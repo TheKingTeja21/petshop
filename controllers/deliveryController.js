@@ -1,4 +1,4 @@
-const Delivery = require("../models/delivary0");
+const Delivery = require("../models/delivary");
 module.exports = {
   createDelivery: async (req, res) => {
     const {
