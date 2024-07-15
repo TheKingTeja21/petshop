@@ -105,4 +105,42 @@ module.exports = {
       res.status(500).json(error.message);
     }
   },
+  signin: async (req, res) => {
+    try {
+      const { email, Password } = req.body;
+  
+      // Check if email exists
+      const user = await User.findOne({ email });
+      if (!user) {
+        return res.status(401).json({ message: 'Invalid email or password' });
+      }
+  
+      // Check if password is correct
+      const decryptedPassword =user.password
+      if (decryptedPassword !== Password) {
+        return res.status(401).json({ message: 'Invalid email or password' });
+      }
+  
+      // Generate and send token
+      const userToken = jwt.sign(
+        {
+          id: user.id,
+          usertype: user.userType,
+          username: user.username,
+          email: user.email,
+          aadhar_Number: user.aadhar_Number,
+          phone: user.phone,
+          address: user.address,
+          profile: user.profile,
+        },
+        process.env.SECRET_KEY_jWT,
+        { expiresIn: '7d' }
+      );
+  
+      const { password, __v, createdAt, ...userData } = user._doc;
+      res.status(200).json({ ...userData, token: userToken });
+    } catch (error) {
+      res.status(500).json({ message: 'Server error', error: error.message });
+    }
+  }
 };
