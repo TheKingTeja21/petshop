@@ -40,5 +40,8 @@ module.exports = {
       state,
     });
     await newdelivery.save()
-  },
-};
+    return res.status(200).json({
+      message: "Delevery created successfully",
+  })
+},
+}
