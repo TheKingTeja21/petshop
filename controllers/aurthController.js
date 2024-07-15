@@ -65,7 +65,7 @@ module.exports = {
         password,
         process.env.SECRET_KEY
       );
-      const newUser = new User({ username, email, decryptedpassword, phone, aadhar_Number,uid });
+      const newUser = new User({ username, email, password:decryptedpassword, phone, aadhar_Number,uid });
       await newUser.save();
       res.status(201).json({ message: 'User created successfully' });
     } catch (error) {
