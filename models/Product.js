@@ -47,7 +47,7 @@ const Productschema = new mongoose.Schema(
     Breed_lineage: { type: String, required: true },
     Address: { type: String, required: true },
     Gender: { type: String, required: true },
-    status: {  type: Boolean, required: true, default: false },
+    status: {  type: String, required: true, default: "available" },
     location: { type: String, required: true },
     age: { type: Number, required: true },
     vaccination: { type: String, required: true },
