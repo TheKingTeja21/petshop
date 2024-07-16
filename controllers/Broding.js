@@ -34,8 +34,8 @@ module.exports = {
         }
 
         try {
-            const updatedBroding = await Broding.findByIdAndUpdate(
-                id,
+            const updatedBroding = await Broding.findOneAndUpdate(
+               {userid:id},
                 { $set: { Bread, Rate } },
                 { new: true }
             );
