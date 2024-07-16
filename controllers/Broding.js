@@ -47,7 +47,7 @@ module.exports = {
             const updatedBroding = await existingBroding.save();
             res.status(200).json(updatedBroding);
         } catch (error) {
-            res.status(500).json({message: error.message,data:{id,Breed,Rate}});
+            res.status(500).json({message: error.message,data:[id,Breed,Rate]});
         }
     }
 };
