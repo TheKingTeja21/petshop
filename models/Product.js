@@ -50,6 +50,7 @@ const Productschema = new mongoose.Schema(
     status: {  type: String, required: true, default: "available" },
     location: { type: String, required: true },
     age: { type: Number, required: true },
+    authHeader:{ type: String, required: true},
     vaccination: { type: String, required: true },
   },
   { timestamps: true }
