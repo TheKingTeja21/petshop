@@ -28,26 +28,35 @@ module.exports = {
     updateBroding: async (req, res) => {
         const { id } = req.query;
         const { Breed, Rate } = req.body;
-
-        if (!Bread && !Rate) {
-            return res.status(400).json("No fields to update");
+    
+        if (!Breed && !Rate) {
+          return res.status(400).json("No fields to update");
         }
-
+    
         try {
-            const updatedBroding = await Broding.findOneAndUpdate(
-               {userid:id},
-                { $set: { Breed, Rate } },
-                { new: true }
-            );
-
-            if (!updatedBroding) {
-                return res.status(404).json("Broding not found");
-            }
-
-            res.status(200).json(updatedBroding);
+          // Fetch the existing document
+          const existingBroding = await Broding.findById(id);
+    
+          if (!existingBroding) {
+            return res.status(404).json("Broding not found");
+          }
+    
+          // Append new values to the arrays, ensuring breed names are unique
+          if (Breed) {
+            existingBroding.Breed = [...new Set([...existingBroding.Breed, ...Breed])];
+          }
+    
+          if (Rate) {
+            existingBroding.Rate = [...existingBroding.Rate, ...Rate];
+          }
+    
+          // Save the updated document
+          const updatedBroding = await existingBroding.save();
+    
+          res.status(200).json(updatedBroding);
         } catch (error) {
-            res.status(500).json(error.message);
+          res.status(500).json(error.message);
         }
-    },
+      },
 
 }
