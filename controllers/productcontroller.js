@@ -12,7 +12,7 @@ module.exports = {
       res.status(500).json(error.message);
     }
   },
-  getallProduct: async (req, res) => {
+  getfilterProduct: async (req, res) => {
     try {
       const { gender, minPrice, maxPrice, breedName, location, age, status } = req.query;
   
@@ -27,6 +27,15 @@ module.exports = {
       if (status !== undefined) filters.status = status; // Override default if query parameter is provided
   
       const allProducts = await Product.find(filters).sort({ createdAt: -1 });
+      res.status(200).json(allProducts);
+    } catch (error) {
+      res.status(500).json(error.message);
+    }
+  },
+  
+  getAllProduct: async (req, res) => {
+    try {
+      const allProducts = await Product.find();
       res.status(200).json(allProducts);
     } catch (error) {
       res.status(500).json(error.message);
