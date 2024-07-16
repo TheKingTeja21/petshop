@@ -24,8 +24,8 @@ module.exports = {
     },
 
     updateBroding: async (req, res) => {
-        const { id } = req.query;
-        const { Breed, Rate } = req.body;
+
+        const { Breed, Rate, id } = req.body;
 
         if (!Breed && !Rate) {
             return res.status(400).json("No fields to update");
