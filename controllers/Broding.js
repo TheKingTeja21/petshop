@@ -32,7 +32,7 @@ module.exports = {
         }
 
         try {
-            const existingBroding = await Broding.findById(id);
+            const existingBroding = await Broding.findOne({userid: id});
             if (!existingBroding) {
                 return res.status(404).json("Broding not found");
             }
