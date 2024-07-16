@@ -7,7 +7,7 @@ const Broding=  new mongoose.Schema({
     userid:{type:mongoose.Schema.Types.ObjectId, ref:"User"},
     phonenumber:{type:Number,required:true},
     Category:{type:Array,required:true},
-    Bread:{type:Array,required:true},
+    Breed:{type:Array,required:true},
     imageurl:{type:String,required:true},
     Rate:{type:Array,required:true},
     currentbookings:{type:Array,required:true},

@@ -27,7 +27,7 @@ module.exports = {
     },
     updateBroding: async (req, res) => {
         const { id } = req.query;
-        const { Bread, Rate } = req.body;
+        const { Breed, Rate } = req.body;
 
         if (!Bread && !Rate) {
             return res.status(400).json("No fields to update");
@@ -36,7 +36,7 @@ module.exports = {
         try {
             const updatedBroding = await Broding.findOneAndUpdate(
                {userid:id},
-                { $set: { Bread, Rate } },
+                { $set: { Breed, Rate } },
                 { new: true }
             );
 
