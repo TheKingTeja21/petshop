@@ -1,9 +1,9 @@
-const Broding = require("../models/Broding");
+const Broding = require("../models/Bording");
 
 module.exports = {
     createbroding: async (req, res) => {
-        const newBroding = new Broding(req.body);
         try {
+            const newBroding = new Broding(req.body);
             await newBroding.save();
             res.status(200).json("Success");
         } catch (error) {

@@ -22,7 +22,7 @@ const animal = require("./routes/animal");
 const ABOUTpet= require("./routes/aboutepet");
 const Vaccination= require("./routes/vaccination");
 const mypet= require("./routes/mypet");
-const broding=require("./routes/Broding")
+const brodingRoutes=require("./routes/Broding")
 const Hospital = require("./routes/Hospital")
 dotenv.config();
 const serviceAccount = require("./firebaseKey.json");
@@ -50,7 +50,7 @@ app.use("/api/accessories", accessoriesRouter);
 app.use("/api/hospital", hospitalRouter);
 app.use("/api/Crossing", Crossing);
 app.use("/api/aboutanimal",animal);
-app.use("/api/Broding",broding);
+app.use('/api/Broding', brodingRoutes);
 app.use("/api/Hospital",Hospital);
 app.use("/api/mypet",mypet);
 app.use("/api/Aboutepet",ABOUTpet);
