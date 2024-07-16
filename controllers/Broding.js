@@ -34,7 +34,7 @@ module.exports = {
         try {
             const existingBroding = await Broding.findById(id);
             if (!existingBroding) {
-                return res.status(404).json("Broding not found");
+                return res.status(404).json({message:"Broding not found"});
             }
 
             if (Breed) {
