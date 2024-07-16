@@ -32,7 +32,7 @@ module.exports = {
         }
 
         try {
-            const existingBroding =  Broding.findById(id);
+            const existingBroding =  await Broding.findById(id);
             if (!existingBroding) {
                 return res.status(404).json({message:"Broding not found"});
             }
@@ -47,7 +47,7 @@ module.exports = {
             const updatedBroding = await existingBroding.save();
             res.status(200).json(updatedBroding);
         } catch (error) {
-            res.status(500).json(error.message);
+            res.status(500).json({message: error.message,data:{id,Breed,Rate}});
         }
     }
 };
