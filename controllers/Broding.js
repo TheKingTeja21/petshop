@@ -44,7 +44,7 @@ module.exports = {
                 existingBroding.Rate = [...existingBroding.Rate, ...Rate];
             }
 
-            const updatedBroding = await existingBroding.save();
+            const updatedBroding =  existingBroding.save();
             res.status(200).json(updatedBroding);
         } catch (error) {
             res.status(500).json(error.message);
