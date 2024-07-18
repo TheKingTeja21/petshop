@@ -84,7 +84,7 @@ module.exports = {
   getByName: async (req, res) => {
     const { Breed_name } = req.query;
     try {
-      const products = await Product.findOne({ Breed_name: Breed_name  });
+      const products = await Product.find({ Breed_name: Breed_name  });
       if (!products) {
         return res.status(404).json("Products Not Found");
       }
