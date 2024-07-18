@@ -81,12 +81,11 @@ module.exports = {
     }
   },
   getByName: async (req, res) => {
-    const {Breed_name}=req.body
+    const { Breed_name } = req.query;
     try {
-      const products = await Product.findOne({Breed_name:Breed_name});
-      if(!products)
-      {
-        return res.status(404).json("Produts Not Found")
+      const products = await Product.findOne({ Breed_name: new RegExp(Breed_name, 'i') });
+      if (!products) {
+        return res.status(404).json("Products Not Found");
       }
       res.status(200).json(products);
     } catch (error) {
