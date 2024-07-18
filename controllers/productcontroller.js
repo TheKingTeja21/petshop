@@ -12,7 +12,7 @@ module.exports = {
       res.status(500).json(error.message);
     }
   },
-  const getfilterProduct = async (req, res) => {
+  getfilterProduct : async (req, res) => {
     try {
         const recLimit = parseInt(req.query.limit) || 10;
         const pageNumber = parseInt(req.query.page) || 1;
