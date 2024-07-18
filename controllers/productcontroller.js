@@ -47,10 +47,6 @@ module.exports = {
         res.status(500).json({ success: false, message: error.message });
     }
 },
-
-
-  
-  
   getAllProduct: async (req, res) => {
     try {
       const allProducts = await Product.find();
