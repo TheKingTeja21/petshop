@@ -26,7 +26,7 @@ module.exports = {
       if (location) filters.location =location; // case-insensitive regex search
       if (status !== undefined) filters.status = status; // Override default if query parameter is provided
   
-      const allProducts = await Product.find(filters).sort({ createdAt: -1 });
+      const allProducts = await Product.find(filters);
       res.status(200).json(allProducts);
     } catch (error) {
       res.status(500).json(error.message);
