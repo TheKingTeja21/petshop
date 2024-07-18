@@ -12,10 +12,8 @@ module.exports = {
       res.status(500).json(error.message);
     }
   },
-  getfilterProduct : async (req, res) => {
+ getfilterProduct : async (req, res) => {
     try {
-        const recLimit = parseInt(req.query.limit) || 10;
-        const pageNumber = parseInt(req.query.page) || 1;
         const {
             gender,
             minPrice,
@@ -39,23 +37,17 @@ module.exports = {
         if (location) filters.location = { $regex: new RegExp(location, "i") };
         if (status !== undefined) filters.status = status === 'true';
 
-        const count = await Product.countDocuments(filters);
-        const totalPages = Math.ceil(count / recLimit);
-        const productsList = await Product.find(filters)
-            .skip((pageNumber - 1) * recLimit)
-            .limit(recLimit)
-            .lean();
+        const productsList = await Product.find(filters).lean();
 
         res.status(200).json({
             success: true,
-            totalPages,
-            totalCount: count,
             data: productsList
         });
     } catch (error) {
         res.status(500).json({ success: false, message: error.message });
     }
 },
+
 
   
   
