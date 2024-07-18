@@ -12,26 +12,51 @@ module.exports = {
       res.status(500).json(error.message);
     }
   },
-  getfilterProduct: async (req, res) => {
+  const getfilterProduct = async (req, res) => {
     try {
-      const { gender, minPrice, maxPrice, breedName, location, age, status } = req.query;
-  
-      let filters = { status: true }; // Default filter for available products
-  
-      if (gender) filters.Gender = gender;
-      if (age) filters.age = age;
-      if (minPrice) filters.price = { ...filters.price, $gte: parseFloat(minPrice) };
-      if (maxPrice) filters.price = { ...filters.price, $lte: parseFloat(maxPrice) };
-      if (breedName) filters.Breed_name = { $regex: new RegExp(breedName, "i") };
-      if (location) filters.location = { $regex: new RegExp(location, "i") };
-      if (status !== undefined) filters.status = status === 'true';
-  
-      const allProducts = await Product.find(filters);
-      res.status(200).json(allProducts);
+        const recLimit = parseInt(req.query.limit) || 10;
+        const pageNumber = parseInt(req.query.page) || 1;
+        const {
+            gender,
+            minPrice,
+            maxPrice,
+            breedName,
+            location,
+            age,
+            status
+        } = req.query;
+
+        let filters = { status: true }; // Default filter for available products
+
+        if (gender) filters.Gender = gender;
+        if (age) filters.age = age;
+        if (minPrice !== undefined || maxPrice !== undefined) {
+            filters.price = {};
+            if (minPrice !== undefined) filters.price.$gte = parseFloat(minPrice);
+            if (maxPrice !== undefined) filters.price.$lte = parseFloat(maxPrice);
+        }
+        if (breedName) filters.Breed_name = { $regex: new RegExp(breedName, "i") };
+        if (location) filters.location = { $regex: new RegExp(location, "i") };
+        if (status !== undefined) filters.status = status === 'true';
+
+        const count = await Product.countDocuments(filters);
+        const totalPages = Math.ceil(count / recLimit);
+        const productsList = await Product.find(filters)
+            .skip((pageNumber - 1) * recLimit)
+            .limit(recLimit)
+            .lean();
+
+        res.status(200).json({
+            success: true,
+            totalPages,
+            totalCount: count,
+            data: productsList
+        });
     } catch (error) {
-      res.status(500).json(error.message);
+        res.status(500).json({ success: false, message: error.message });
     }
-  },
+},
+
   
   
   getAllProduct: async (req, res) => {
