@@ -16,15 +16,15 @@ module.exports = {
     try {
       const { gender, minPrice, maxPrice, breedName, location, age, status } = req.query;
   
-      let filters = { status: false }; // Set default filter for isSoldout
+      let filters = { status: true }; // Default filter for available products
   
       if (gender) filters.Gender = gender;
-      if(age) filters.age = age;
+      if (age) filters.age = age;
       if (minPrice) filters.price = { ...filters.price, $gte: parseFloat(minPrice) };
       if (maxPrice) filters.price = { ...filters.price, $lte: parseFloat(maxPrice) };
-      if (breedName) filters.Breed_name = breedName; // case-insensitive regex search
-      if (location) filters.location =location; // case-insensitive regex search
-      if (status !== undefined) filters.status = status; // Override default if query parameter is provided
+      if (breedName) filters.Breed_name = { $regex: new RegExp(breedName, "i") };
+      if (location) filters.location = { $regex: new RegExp(location, "i") };
+      if (status !== undefined) filters.status = status === 'true';
   
       const allProducts = await Product.find(filters);
       res.status(200).json(allProducts);
@@ -32,6 +32,7 @@ module.exports = {
       res.status(500).json(error.message);
     }
   },
+  
   
   getAllProduct: async (req, res) => {
     try {
