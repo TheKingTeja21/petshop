@@ -22,8 +22,8 @@ module.exports = {
       if(age) filters.age = age;
       if (minPrice) filters.price = { ...filters.price, $gte: parseFloat(minPrice) };
       if (maxPrice) filters.price = { ...filters.price, $lte: parseFloat(maxPrice) };
-      if (breedName) filters.Breed_name = new RegExp(breedName, 'i'); // case-insensitive regex search
-      if (location) filters.location = new RegExp(location, 'i'); // case-insensitive regex search
+      if (breedName) filters.Breed_name = breedName; // case-insensitive regex search
+      if (location) filters.location =location; // case-insensitive regex search
       if (status !== undefined) filters.status = status; // Override default if query parameter is provided
   
       const allProducts = await Product.find(filters).sort({ createdAt: -1 });
