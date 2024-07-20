@@ -13,7 +13,7 @@ const BrodingSchema = new mongoose.Schema({
     Rate: { type: Array, required: true },
     currentbookings: { type: Array, required: true },
     Shoplocation: { type: Array, required: true },
-    description: { type: String, required: true }
+    description: { type: String, required: false }
 }, { timestamps: true });
 
 module.exports = mongoose.model("Broding", BrodingSchema);
