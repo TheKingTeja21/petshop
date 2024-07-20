@@ -48,4 +48,12 @@ module.exports = {
   return res.status(500).json({ error: error.message });
 }
 },
+getAddress: async (req, res) => {
+  try {
+    const delivery = await Delivery.find();
+    res.status(200).json(delivery);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+},
 }

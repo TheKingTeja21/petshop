@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 
 const deliverySchema = new mongoose.Schema({
   name: { type: String, required: true },
+  userId: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
   mobileNumber: { type: String, required: true },
   houseType: {
     type: String,
