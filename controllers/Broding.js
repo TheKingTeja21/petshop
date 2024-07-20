@@ -49,5 +49,54 @@ module.exports = {
         } catch (error) {
             res.status(500).json(error.message);
         }
+    },
+    getBrodingRate: async (req, res) => {
+        const { id } = req.query;
+        try {
+            const existingBroding = await Broding.findById(id, 'Breed Rate'); // Select only Breed and Rate fields
+            if (!existingBroding) {
+                return res.status(404).json({ message: "Broding not found" });
+            }
+    
+            res.status(200).json({
+                success: true,
+                data: {
+                    breeds: existingBroding.Breed,
+                    rates: existingBroding.Rate
+                }
+            });
+        } catch (error) {
+            res.status(500).json({ success: false, message: error.message });
+        }
+    },
+    deleteBroding: async (req, res) => {
+        const { Breed } = req.query;
+        try {
+            const broding = await Broding.findOne({ Breed: { $in: Breed } });
+            if (!broding) {
+                return res.status(404).json({ message: "Broding not found" });
+            }
+    
+            // Find the index of the breed to be removed
+            const index = broding.Breed.indexOf(Breed);
+            if (index === -1) {
+                return res.status(404).json({ message: "Breed not found in Broding" });
+            }
+    
+            // Update the document by pulling the specific breed and rate
+            await Broding.updateOne(
+                { _id: broding._id },
+                {
+                    $pull: { Breed: Breed },
+                    $pull: { Rate: broding.Rate[index] }
+                }
+            );
+    
+            res.status(200).json({ success: true, message: "Broding updated successfully" });
+        } catch (error) {
+            res.status(500).json({ success: false, message: error.message });
+        }
     }
-};
+    
+
+}

@@ -4,5 +4,6 @@ const broding = require("../controllers/Broding");
 router.post("/createbroding", broding.createbroding);
 router.get("/getallbroding", broding.getallbroding);
 router.put("/updatebrodingdetails", broding.updateBroding);
-
+router.get("/getBreedRate", broding.getBrodingRate);
+router.delete("/deleteBreed", broding.deleteBroding);
 module.exports = router;
