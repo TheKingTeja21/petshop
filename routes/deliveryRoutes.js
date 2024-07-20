@@ -1,5 +1,5 @@
 const  deliveryController=require('../controllers/deliveryController');
 const router=require('express').Router();
 router.post('/create',deliveryController.createDelivery);
-router.post('/getAddress',deliveryController.getAddress);
+router.get('/getAddress',deliveryController.getAddress);
 module.exports = router
