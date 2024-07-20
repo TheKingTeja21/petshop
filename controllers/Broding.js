@@ -106,12 +106,15 @@ module.exports = {
                 return res.status(404).json({ message: "Broding not found" });
             }
     
-            // Create maps for existing breeds and rates for easier management
+            // Create a map for existing breeds and rates for easier management
             const breedMap = new Map(existingBroding.Breed.map((breed, index) => [breed, existingBroding.Rate[index]]));
-            
-            // Add new breeds and their rates
+    
+            // Add new breeds and their rates maintaining the same index even if empty
             Breed.forEach((breed, index) => {
-                breedMap.set(breed, Rate[index]);
+                // Check if the Breed and Rate arrays have values at the current index
+                if (breed !== undefined && Rate[index] !== undefined) {
+                    breedMap.set(breed, Rate[index]);
+                }
             });
     
             // Split the map back into separate arrays
@@ -125,5 +128,5 @@ module.exports = {
         }
     }
     
-
+    
 }
