@@ -53,7 +53,7 @@ module.exports = {
     getBrodingRate: async (req, res) => {
         const { id } = req.query;
         try {
-            const existingBroding = await Broding.findById(id, 'Breed Rate'); // Select only Breed and Rate fields
+            const existingBroding = await Broding.findById(id ); // Select only Breed and Rate fields
             if (!existingBroding) {
                 return res.status(404).json({ message: "Broding not found" });
             }
