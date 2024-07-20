@@ -96,6 +96,32 @@ module.exports = {
         } catch (error) {
             res.status(500).json({ success: false, message: error.message });
         }
+    },
+    AddBrodingRate: async (req, res) => {
+        const { id, Breed, Rate } = req.body;
+        try {
+            const existingBroding = await Broding.findById(id);
+            if (!existingBroding) {
+                return res.status(404).json({ message: "Broding not found" });
+            }
+    
+            // Create maps for existing breeds and rates for easier management
+            const breedMap = new Map(existingBroding.Breed.map((breed, index) => [breed, existingBroding.Rate[index]]));
+            
+            // Add new breeds and their rates
+            Breed.forEach((breed, index) => {
+                breedMap.set(breed, Rate[index]);
+            });
+    
+            // Split the map back into separate arrays
+            existingBroding.Breed = Array.from(breedMap.keys());
+            existingBroding.Rate = Array.from(breedMap.values());
+    
+            const updatedBroding = await existingBroding.save();
+            res.status(200).json(updatedBroding);
+        } catch (error) {
+            res.status(500).json({ success: false, message: error.message });
+        }
     }
     
 
