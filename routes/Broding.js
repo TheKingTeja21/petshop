@@ -7,4 +7,5 @@ router.put("/updatebrodingdetails", broding.updateBroding);
 router.get("/getBreedRate", broding.getBrodingRate);
 router.put("/AddBreedRate", broding.AddBrodingRate);
 router.delete("/deleteBreed", broding.deleteBroding);
+router.put("/EditBreed", broding.editBreed);
 module.exports = router;

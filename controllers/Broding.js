@@ -109,12 +109,13 @@ module.exports = {
             // Create a map for existing breeds and rates for easier management
             const breedMap = new Map(existingBroding.Breed.map((breed, index) => [breed, existingBroding.Rate[index]]));
     
-            // Add new breeds and their rates maintaining the same index even if empty
+            // Determine the starting index for inserting new data
+            const startIndex = existingBroding.Breed.length;
+    
+            // Insert Breed at the specified index
             Breed.forEach((breed, index) => {
-                // Check if the Breed and Rate arrays have values at the current index
-                if (breed !== undefined && Rate[index] !== undefined) {
-                    breedMap.set(breed, Rate[index]);
-                }
+                const insertIndex = startIndex + index;
+                breedMap.set(breed, Rate[index] || null); // Use Rate[index] or null if Rate array is shorter
             });
     
             // Split the map back into separate arrays
@@ -126,7 +127,40 @@ module.exports = {
         } catch (error) {
             res.status(500).json({ success: false, message: error.message });
         }
-    }
+    },
+    editBreed:async (req, res) => {
+        const { id } = req.params;
+        const { Breed, Rate } = req.body;
+      
+        try {
+          const existingBroding = await Broding.findById(id);
+          if (!existingBroding) {
+            return res.status(404).json({ message: "Broding not found" });
+          }
+      
+          // Ensure Breed and Rate are arrays of the same length
+          if (Breed.length !== Rate.length) {
+            return res.status(400).json({ message: "Breed and Rate arrays must have the same length" });
+          }
+      
+          // Update Breed and Rate at the specified index
+          Breed.forEach((breed, index) => {
+            const existingIndex = existingBroding.Breed.findIndex((item) => item._id === breed._id);
+            if (existingIndex !== -1) {
+              existingBroding.Breed[existingIndex] = breed;
+              existingBroding.Rate[existingIndex] = Rate[index];
+            } else {
+              existingBroding.Breed.push(breed);
+              existingBroding.Rate.push(Rate[index]);
+            }
+          });
+      
+          const updatedBroding = await existingBroding.save();
+          res.status(200).json(updatedBroding);
+        } catch (error) {
+          res.status(500).json({ success: false, message: error.message });
+        }
+      }
     
     
 }
