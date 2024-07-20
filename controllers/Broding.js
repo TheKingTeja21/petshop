@@ -26,30 +26,31 @@ module.exports = {
     updateBroding: async (req, res) => {
         const { id } = req.query;
         const { Breed, Rate } = req.body;
-
-        if (!Breed && !Rate) {
-            return res.status(400).json("No fields to update");
+      
+        if (!Breed.length && !Rate.length) {
+          return res.status(400).json("No fields to update");
         }
-
+      
         try {
-            const existingBroding =  await Broding.findById(id);
-            if (!existingBroding) {
-                return res.status(404).json({message:"Broding not found"});
-            }
-
-            if (Breed) {
-                existingBroding.Breed = [...new Set([...existingBroding.Breed, ...Breed])];
-            }
-            if (Rate) {
-                existingBroding.Rate = [...existingBroding.Rate, ...Rate];
-            }
-
-            const updatedBroding = await existingBroding.save();
-            res.status(200).json(updatedBroding);
+          const existingBroding = await Broding.findById(id);
+          if (!existingBroding) {
+            return res.status(404).json({ message: "Broding not found" });
+          }
+      
+          if (Breed.length) {
+            existingBroding.Breed.push(...Breed);
+          }
+          if (Rate.length) {
+            existingBroding.Rate.push(...Rate);
+          }
+      
+          const updatedBroding = await existingBroding.save();
+          res.status(200).json(updatedBroding);
         } catch (error) {
-            res.status(500).json(error.message);
+          res.status(500).json(error.message);
         }
-    },
+      },
+      
     getBrodingRate: async (req, res) => {
         const { id } = req.query;
         try {
