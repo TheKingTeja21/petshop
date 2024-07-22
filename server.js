@@ -23,7 +23,8 @@ const ABOUTpet= require("./routes/aboutepet");
 const Vaccination= require("./routes/vaccination");
 const mypet= require("./routes/mypet");
 const brodingRoutes=require("./routes/Broding")
-const Hospital = require("./routes/Hospital")
+const Hospital = require("./routes/Hospital");
+const petHealthRoutes=require("./routes/petHealthRoutes")
 dotenv.config();
 const serviceAccount = require("./firebaseKey.json");
 const Broding = require("./controllers/Broding");
@@ -58,6 +59,7 @@ app.use("/api/Vaccination",Vaccination);
 app.use("/api/appointment",appointmentRouter);
 app.use("/api/payment",paymentRouter);
 app.use("/api/delivery",deliveryRouter);
+pp.use("/api/petHealth",petHealthRoutes);
 app.get("/", (req, res) => res.send("Hello World!"));
 app.listen(process.env.PORT || port, () =>
   console.log(`Example app listening on port ${process.env.PORT}!`)
