@@ -128,7 +128,7 @@ module.exports = {
             res.status(500).json({ success: false, message: error.message });
         }
     },
-    editBreed: async (req, res) => {
+    const editBreed = async (req, res) => {
       const id = req.params.id; // Get ID from the request parameters
       const { breedName, newRate } = req.body; // Get breed name and new rate from the request body
     
@@ -160,7 +160,5 @@ module.exports = {
         res.status(500).json({ success: false, message: error.message });
       }
     }
-    
-    
-    
+       
 }
