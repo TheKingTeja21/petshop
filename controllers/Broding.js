@@ -129,7 +129,7 @@ module.exports = {
         }
     },
     editBreed:async (req, res) => {
-        const { id } = req.params;
+        const { id } = req.query;
         const { Breed, Rate } = req.body;
       
         try {
