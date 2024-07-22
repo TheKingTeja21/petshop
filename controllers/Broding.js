@@ -128,39 +128,39 @@ module.exports = {
             res.status(500).json({ success: false, message: error.message });
         }
     },
-    editBreed:async (req, res) => {
-        const { id } = req.query;
-        const { Breed, Rate } = req.body;
-      
-        try {
-          const existingBroding = await Broding.findById(id);
-          if (!existingBroding) {
-            return res.status(404).json({ message: "Broding not found" });
-          }
-      
-          // Ensure Breed and Rate are arrays of the same length
-          if (Breed.length !== Rate.length) {
-            return res.status(400).json({ message: "Breed and Rate arrays must have the same length" });
-          }
-      
-          // Update Breed and Rate at the specified index
-          Breed.forEach((breed, index) => {
-            const existingIndex = existingBroding.Breed.findIndex((item) => item._id === breed._id);
-            if (existingIndex !== -1) {
-              existingBroding.Breed[existingIndex] = breed;
-              existingBroding.Rate[existingIndex] = Rate[index];
-            } else {
-              existingBroding.Breed.push(breed);
-              existingBroding.Rate.push(Rate[index]);
-            }
-          });
-      
-          const updatedBroding = await existingBroding.save();
-          res.status(200).json(updatedBroding);
-        } catch (error) {
-          res.status(500).json({ success: false, message: error.message });
+    editBreed: async (req, res) => {
+      const { id } = req.params; // Get ID from the request parameters
+      const { breedName, newRate } = req.body; // Get breed name and new rate from the request body
+    
+      try {
+        // Find the Broding document by ID
+        const existingBroding = await Broding.findById(id);
+        if (!existingBroding) {
+          return res.status(404).json({ message: "Broding document not found" });
         }
+    
+        // Find the index of the breed in the Breed array
+        const breedIndex = existingBroding.Breed.findIndex(
+          (item) => item.name === breedName // Adjust this if breed name is a different property
+        );
+    
+        // Check if the breed exists
+        if (breedIndex === -1) {
+          return res.status(404).json({ message: "Breed not found" });
+        }
+    
+        // Update the rate at the found index
+        existingBroding.Rate[breedIndex] = newRate;
+    
+        // Save the updated document
+        const updatedBroding = await existingBroding.save();
+    
+        res.status(200).json(updatedBroding);
+      } catch (error) {
+        res.status(500).json({ success: false, message: error.message });
       }
+    }
+    
     
     
 }
