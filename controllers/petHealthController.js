@@ -3,7 +3,8 @@ module.exports = {
 // Get all PetHealth records
  getAll : async (req, res) => {
     try {
-        const petHealthRecords = await PetHealth.find().populate('petId');
+        const petId = req.params.petId
+        const petHealthRecords = await PetHealth.find().populate(petId);
         res.status(200).json(petHealthRecords);
     } catch (error) {
         res.status(500).json({ message: error.message });
