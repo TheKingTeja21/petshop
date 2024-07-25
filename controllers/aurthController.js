@@ -8,11 +8,13 @@ module.exports = {
   createuser: async (req, res) => {
     const user = req.body;
     try {
+      // Check if the user already exists in Firebase Auth
       await admin.auth().getUserByEmail(user.email);
       return res.status(400).json({ message: "The email is already registered" });
     } catch (error) {
       if (error.code === "auth/user-not-found") {
         try {
+          // Create a new user in Firebase Auth
           const userResponse = await admin.auth().createUser({
             email: user.email,
             emailVerified: false,
@@ -20,10 +22,14 @@ module.exports = {
             disabled: false,
           });
 
+          // Encrypt the password before storing in MongoDB
+          const encryptedPassword = Crypto.AES.encrypt(user.password, process.env.SECRET_KEY).toString();
+
+          // Create a new user in MongoDB
           const newUser = new User({
             username: user.username,
             email: user.email,
-            password: Crypto.AES.encrypt(user.password, process.env.SECRET_KEY).toString(),
+            password: encryptedPassword,
             uid: userResponse.uid,
             phone: user.phone,
             userType: user.userType,
@@ -33,7 +39,8 @@ module.exports = {
           await newUser.save();
           return res.status(201).json({ message: "Success" });
         } catch (error) {
-          if (error.code === 11000) { // Duplicate key error
+          // Handle duplicate key errors
+          if (error.code === 11000) {
             if (error.keyValue.phone) {
               return res.status(400).json({ message: "Phone number is already registered" });
             } else if (error.keyValue.aadhar_Number) {
@@ -58,14 +65,17 @@ module.exports = {
         return res.status(401).json({ message: "Wrong credentials provided. Please provide a valid email" });
       }
 
-      const decryptedpassword = Crypto.AES.decrypt(user.password, process.env.SECRET_KEY);
-      const decryptedpass = decryptedpassword.toString(Crypto.enc.Utf8);
-      if (decryptedpass !== req.body.password) {
+      // Decrypt the password stored in MongoDB
+      const decryptedPassword = Crypto.AES.decrypt(user.password, process.env.SECRET_KEY);
+      const decryptedPass = decryptedPassword.toString(Crypto.enc.Utf8);
+      if (decryptedPass !== req.body.password) {
         return res.status(401).json({ message: "Wrong password provided" });
       }
 
+      // Find vendor information if the user is a vendor
       const vendor = await AnimalShop.find({ owner: user._id });
 
+      // Generate a JWT token
       const userToken = jwt.sign(
         {
           id: user.id,
@@ -81,6 +91,7 @@ module.exports = {
         { expiresIn: "7d" }
       );
 
+      // Exclude sensitive fields before sending the user data
       const { password, __v, createdAt, ...userData } = user._doc;
       res.status(200).json({ ...userData, token: userToken, vendor });
     } catch (error) {
