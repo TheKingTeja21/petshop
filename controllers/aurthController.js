@@ -80,7 +80,7 @@ module.exports = {
           address: user.address,
           profile:user.profile,
         },
-        process.env.SECRET_KEY,
+        process.env.SECRET_KEY_jWT,
         { expiresIn: "7d" }
       );
 
