@@ -8,7 +8,7 @@ module.exports = {
   createuser: async (req, res) => {
     const user = req.body;
     try {
-      // Check if the user already exists in Firebase Auth
+      // Check if the email is already registered in Firebase Auth
       await admin.auth().getUserByEmail(user.email);
       return res.status(400).json({ message: "The email is already registered" });
     } catch (error) {
@@ -22,7 +22,7 @@ module.exports = {
             disabled: false,
           });
 
-          // Encrypt the password before storing in MongoDB
+          // Encrypt the password before storing it in MongoDB
           const encryptedPassword = Crypto.AES.encrypt(user.password, process.env.SECRET_KEY).toString();
 
           // Create a new user in MongoDB
@@ -37,9 +37,9 @@ module.exports = {
           });
 
           await newUser.save();
-          return res.status(201).json({ message: "Success" });
+          return res.status(201).json({ message: "User created successfully" });
         } catch (error) {
-          // Handle duplicate key errors
+          // Handle duplicate key errors for phone number and Aadhar number
           if (error.code === 11000) {
             if (error.keyValue.phone) {
               return res.status(400).json({ message: "Phone number is already registered" });
@@ -57,7 +57,39 @@ module.exports = {
       }
     }
   },
-  
+  register:async(req,res)=>{
+    const {username,phone,aadhar_Number,email,password}=req.body
+    try{
+    const user=await User.findOne({email:email});
+    if(user){
+      return res.status(400).json({message:"User already exists"})
+    }
+    const userResponse = await admin.auth().createUser({
+      email: user.email,
+      emailVerified: false,
+      password: user.password,
+      disabled: false,
+    });
+    const encryptedPassword = Crypto.AES.encrypt(password, process.env.SECRET_KEY).toString();
+    const newUser= new User({username,phone,aadhar_Number, uid: userResponse.uid,email,password:encryptedPassword});
+    await newUser.save();
+    res.status(200).json({message:"User created successfully"})
+  }catch(error){
+    if (error.code === 11000) {
+      if (error.keyValue.phone) {
+        return res.status(400).json({ message: "Phone number is already registered" });
+      } else if (error.keyValue.aadhar_Number) {
+        return res.status(400).json({ message: "Aadhar number is already registered" });
+      } else {
+        return res.status(500).json({ message: "An error occurred", error: error.message });
+      }
+    } else {
+      return res.status(500).json({ message: "An error occurred", error: error.message });
+    }
+  }
+
+  },
+
   loginuser: async (req, res) => {
     try {
       const user = await User.findOne({ email: req.body.email });
